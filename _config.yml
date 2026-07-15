@@ -1,6 +1,19 @@
-title: Panida Yimsanga
-description: Software Engineer
-logo: /assets/img/panida-yimsanga.jpg
-remote_theme: pages-themes/minimal@v0.2.0
-plugins:
-  - jekyll-remote-theme
+title: <p align="center"> Panida Yimsanga </p>
+
+logo: "/assets/img/panida-yimsanga.jpg?raw=true"
+
+description:
+  <p align="center">
+  <a href="https://drive.google.com/file/d/1nG6wnsBq6azGsCrxZkBJGt3n2O6j4jDE/view?usp=sharing">Resume</a> |
+  <a href="https://www.linkedin.com/in/panida-yimsanga-831968200/">LinkedIn</a> |
+  <a href="https://github.com/sarasix">GitHub</a>
+  </p>
+
+  <p align="justify">
+  I am a Backend Software Engineer with a Computer Engineering background and experience building robust, scalable flight-booking systems. I enjoy collaborating with skilled teams to solve complex integration and reliability problems.
+  <br><br>
+  email - panida.yimsanga@gmail.com
+  <br><br>
+  </p>
+
+theme: jekyll-theme-minimal
