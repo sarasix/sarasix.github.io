@@ -1,6 +1,6 @@
 # Panida Yimsanga
 
-[Resume](#work-experience) | [LinkedIn](https://www.linkedin.com/in/panida-yimsanga/) | [GitHub](https://github.com/sarasix)
+[Resume](#work-experience) | [LinkedIn](https://www.linkedin.com/in/panida-yimsanga-831968200/) | [GitHub](https://github.com/sarasix)
 
 Backend Software Engineer with a Computer Engineering background and experience building robust, scalable flight-booking systems. I enjoy collaborating with skilled teams to solve complex integration and reliability problems.
 
