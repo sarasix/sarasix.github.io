@@ -2,3 +2,30 @@
 ---
 
 @import "jekyll-theme-minimal";
+
+header > img {
+  display: block;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 20px;
+  object-fit: cover;
+  object-position: center;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+}
+
+@media print, screen and (max-width: 960px) {
+  header > img {
+    width: 180px;
+    height: 180px;
+    margin-left: 0;
+  }
+}
+
+@media print, screen and (max-width: 720px) {
+  header > img {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
