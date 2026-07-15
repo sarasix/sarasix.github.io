@@ -53,7 +53,7 @@ Contributed to a pregnancy and child-development application used by tens of tho
 
 ## Teaching Assistant - Python Programming
 
-**Chulalongkorn University | August 2021 - May 2022**
+**Chulalongkorn University · August 2021 - May 2022**
 
 * Taught Python programming and explained complex coding concepts in approachable ways.
 * Guided students through coursework and provided detailed feedback on assignments.
@@ -103,13 +103,13 @@ Developed image-processing and game-AI projects, including a bacteria detection 
 
 ## Chulalongkorn University
 
-**Bachelor of Engineering in Computer Engineering | 2018 - 2022**
+**Bachelor of Engineering in Computer Engineering · 2018 - 2022**
 
 GPA: 2.85 (2.98 excluding Chemical Engineering courses)
 
 ## Samsenwittayalai School
 
-**Senior High School | 2015 - 2017**
+**Senior High School · 2015 - 2017**
 
 ---
 
