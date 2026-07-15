@@ -105,8 +105,6 @@ Developed image-processing and game-AI projects, including a bacteria detection 
 
 **Bachelor of Engineering in Computer Engineering · 2018 - 2022**
 
-GPA: 2.85 (2.98 excluding Chemical Engineering courses)
-
 ## Samsenwittayalai School
 
 **Senior High School · 2015 - 2017**
