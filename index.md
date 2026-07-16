@@ -87,7 +87,7 @@ Built a LINE bot using Google Apps Script for classroom operations.
 
 * Registered users and stored user IDs.
 * Reported individual test scores to students.
-* Checked classroom attendance and attendance windows.
+* Checked classroom attendance and attendance windows, treating early or late check-ins as absent.
 * Automated simple teacher-student workflows through LINE chat.
 
 **Register user**
@@ -100,6 +100,18 @@ Built a LINE bot using Google Apps Script for classroom operations.
 
 <p align="center">
   <img src="/assets/img/line-bot/report-individual-score.png" alt="LINE Classroom Bot individual score report" width="320">
+</p>
+
+**Check attendance in the classroom**
+
+Students can check in only within the allowed time window. Check-ins before the window or after the late window are marked as absent.
+
+<p align="center">
+  <img src="/assets/img/line-bot/check-attendance-window.png" alt="LINE Classroom Bot attendance time window" width="320">
+</p>
+
+<p align="center">
+  <img src="/assets/img/line-bot/check-attendance-success.png" alt="LINE Classroom Bot attendance completed" width="320">
 </p>
 
 ---
