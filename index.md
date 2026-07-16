@@ -96,6 +96,12 @@ Built a LINE bot using Google Apps Script for classroom operations.
   <img src="/assets/img/line-bot/register-user.png" alt="LINE Classroom Bot register user flow" width="320">
 </p>
 
+**Report individual score test**
+
+<p align="center">
+  <img src="/assets/img/line-bot/report-individual-score.png" alt="LINE Classroom Bot individual score report" width="320">
+</p>
+
 ---
 
 ## Blockchain-Based Voting System
