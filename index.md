@@ -183,6 +183,14 @@ Developed image-processing and game-AI projects, including a bacteria detection 
 * **Petch Yod Mongkut Mathematics Competition** - Qualified
 * **e-Quiz, Chulalongkorn University**
 * **Secure Coding Assessment** - CISO, Agoda, 2022
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/secure-coding-warrior.jpg" alt="Secure Coding assessment certificate from Agoda and Secure Code Warrior">
+      <figcaption>Secure Coding assessment certificate</figcaption>
+    </figure>
+  </div>
+
 * **Code++ Challenge, Assumption University** - Silver Medal
 * **ICT Challenge 2016, KMUTT** - 2nd Place
 * **RYW Programming Contest** - 1st Place
