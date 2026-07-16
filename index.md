@@ -218,6 +218,14 @@ Developed image-processing and game-AI projects, including a bacteria detection 
 * **Code++ Challenge, Assumption University** - Silver Medal
 * **ICT Challenge 2016, KMUTT** - 2nd Place
 * **RYW Programming Contest** - 1st Place
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/ryw-programming-contest.jpg" alt="RYW Programming Contest certificate">
+      <figcaption>RYW Programming Contest certificate</figcaption>
+    </figure>
+  </div>
+
 * **Suankularb Olympiad of Informatics 2017**
 * **ICT Junior Camp #8 - Smart City Smart Community**
 * **SQL - MySQL for Data Analytics and Business Intelligence** - 10-hour online course
