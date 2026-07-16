@@ -150,6 +150,18 @@ Developed image-processing and game-AI projects, including a bacteria detection 
 
 * **O-NET Mathematics** - Perfect Score (100/100)
 * **Thailand Computer Olympiad Camp (POSN 1 and POSN 2)** - Qualified through competitive selection
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/computer-olympic-posn-camp.jpg" alt="Computer Olympiad POSN 2 camp certificate">
+      <figcaption>Computer Olympiad POSN 2 camp certificate</figcaption>
+    </figure>
+    <figure>
+      <img src="/assets/img/awards/computer-olympic-selection.jpg" alt="Computer Olympiad selection certificate">
+      <figcaption>Computer Olympiad selection certificate</figcaption>
+    </figure>
+  </div>
+
 * **Petch Yod Mongkut Mathematics Competition** - Qualified
 * **e-Quiz, Chulalongkorn University**
 * **Secure Coding Assessment** - CISO, Agoda, 2022
