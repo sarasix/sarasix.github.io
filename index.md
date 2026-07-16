@@ -216,6 +216,14 @@ Developed image-processing and game-AI projects, including a bacteria detection 
   </div>
 
 * **Code++ Challenge, Assumption University** - Silver Medal
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/code-plus-plus-challenge-abac-silver.jpg" alt="Code++ Challenge ABAC silver medal certificate">
+      <figcaption>Code++ Challenge ABAC silver medal certificate</figcaption>
+    </figure>
+  </div>
+
 * **ICT Challenge 2016, KMUTT** - 2nd Place
 * **RYW Programming Contest** - 1st Place
 
