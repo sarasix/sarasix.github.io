@@ -225,6 +225,14 @@ Developed image-processing and game-AI projects, including a bacteria detection 
   </div>
 
 * **ICT Challenge 2016, KMUTT** - 2nd Place
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/ict-challenge-2016.jpg" alt="ICT Challenge 2016 second place certificate">
+      <figcaption>ICT Challenge 2016 second place certificate</figcaption>
+    </figure>
+  </div>
+
 * **RYW Programming Contest** - 1st Place
 
   <div class="award-gallery">
