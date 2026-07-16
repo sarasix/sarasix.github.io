@@ -90,6 +90,12 @@ Built a LINE bot using Google Apps Script for classroom operations.
 * Checked classroom attendance and attendance windows.
 * Automated simple teacher-student workflows through LINE chat.
 
+**Register user**
+
+<p align="center">
+  <img src="/assets/img/line-bot/register-user.png" alt="LINE Classroom Bot register user flow" width="320">
+</p>
+
 ---
 
 ## Blockchain-Based Voting System
