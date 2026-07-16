@@ -22,12 +22,6 @@
 
         <p>{{ site.description | default: site.github.project_tagline }}</p>
 
-        {% if site.qr_code %}
-          <div class="sidebar-qr">
-            <img src="{{ site.qr_code | relative_url }}" alt="QR code" />
-          </div>
-        {% endif %}
-
         {% if site.show_downloads %}
         <ul class="downloads">
           <li><a href="{{ site.github.zip_url }}">Download <strong>ZIP File</strong></a></li>

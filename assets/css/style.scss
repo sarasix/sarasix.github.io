@@ -15,21 +15,33 @@ header > img {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
 }
 
-.sidebar-qr {
-  margin: 4px auto 22px;
-  text-align: center;
+.portfolio-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
 }
 
-.sidebar-qr img {
-  display: block;
-  width: 160px;
-  height: auto;
-  margin: 0 auto;
+.portfolio-gallery figure {
+  margin: 0;
   padding: 8px;
   background: #fff;
   border: 1px solid #e5e5e5;
   border-radius: 8px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+.portfolio-gallery img {
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.portfolio-gallery figcaption {
+  margin-top: 8px;
+  color: #555;
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 @media print, screen and (max-width: 960px) {
@@ -72,10 +84,6 @@ header > img {
     aspect-ratio: 1;
     margin-right: auto;
     margin-left: auto;
-  }
-
-  .sidebar-qr img {
-    width: min(160px, 70%);
   }
 
   section {

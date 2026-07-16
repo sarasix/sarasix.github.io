@@ -17,21 +17,23 @@
 
 **July 2022 - Present**
 
-Building and maintaining distributed microservices for Agoda's Flights team, supporting the search-to-post-booking lifecycle across airline and travel-supplier integrations.
+Building distributed microservices for Agoda's Flights team, supporting the search-to-post-booking lifecycle across airline and travel-supplier integrations.
 
 **Key Contributions**
 
-* **Airline & Supplier Onboarding**: Built end-to-end integrations connecting Agoda with airline supplier systems using REST, SOAP, and NDC. Delivered search, price confirmation, booking, add-ons, and post-booking flows for multiple suppliers and airlines.
+* **Supplier onboarding and API connectivity**: Led supplier onboarding and designed API connections for **10+ flight suppliers**, covering search, price confirmation, booking, add-ons, post-booking, and operational support flows.
 
-* **Bookability Improvements**: Designed systems and operational workflows to improve booking success, including ghost-booking detection to verify booking validity and prevent duplicate bookings.
+* **Booking reliability and bookability**: Improved booking reliability by implementing booking class change tolerance, recovering approximately **25.3% of affected booking-class-change cases** for a major connector.
 
-* **Hacker Fare Itineraries**: Worked on combining itineraries from different airlines to offer customers more flexible and cost-effective travel options.
+* **Payment and virtual credit card flows**: Supported virtual credit card payment flows that generated approximately **USD 8,000 in daily profit**.
 
-* **Book & Hold Feature**: Designed and implemented a "book now, pay later" system that locks reservations at optimal prices. Integrated with an external monitoring agent via webhooks and coordinated transaction, void, and payment flows.
+* **Book & Hold Feature**: Designed the **Book & Hold** feature, enabling customers to hold bookings and pay later, contributing an estimated **USD 381K in annual profit uplift**.
 
-* **Supplier Connectivity Platform**: Developed connectors that translate diverse airline APIs into Agoda's internal common model, enabling a consistent booking experience. Worked with Protobuf models, JSON fixtures, and OpenAPI/Swagger specifications.
+* **Supplier onboarding platform**: Contributed to the **API design** for Agoda's supplier onboarding platform, supporting the onboarding of **8 suppliers within 6 months**.
 
-* **Reliability & Automation**: Managed feature flags and supplier traffic through Consul KV, monitored supplier health in Grafana, maintained GitLab CI/CD pipelines, and wrote automated unit and acceptance tests with ScalaTest.
+* **Deployment reliability**: Reduced deployment change failure rate by **30%** by adding production configuration validation into the CI/CD pipeline.
+
+* **Reliability and automation**: Managed feature flags and supplier traffic through Consul KV, monitored supplier health in Grafana, maintained GitLab CI/CD pipelines, and wrote automated unit and acceptance tests with ScalaTest.
 
 ---
 
@@ -39,17 +41,12 @@ Building and maintaining distributed microservices for Agoda's Flights team, sup
 
 **August 2021 - May 2022**
 
-Contributed to a pregnancy and child-development application used by tens of thousands of users. Built a BMI calculator, gamification features, and a vaccination checklist using Flutter and Dart.
+Developed Flutter/Dart features for a mobile health app with **100K+ downloads**.
 
----
-
-## Teaching Assistant - Python Programming
-
-**Chulalongkorn University · August 2021 - May 2022**
-
-* Taught Python programming and explained complex coding concepts in approachable ways.
-* Guided students through coursework and provided detailed feedback on assignments.
-* Helped students strengthen their problem-solving and programming fundamentals.
+* Built a vaccination checklist and scheduling logic to calculate when children should receive each vaccine based on age and recommended timelines.
+* Implemented BMI and growth tracking that evaluates a child's weight across monthly age ranges, helping parents understand whether the child is within a healthy range.
+* Developed gamification features to improve user engagement and encourage consistent health tracking.
+* Published work for the KhunLook app on Google Play.
 
 ---
 
@@ -57,13 +54,43 @@ Contributed to a pregnancy and child-development application used by tens of tho
 
 **June 2021 - August 2021**
 
-Contributed to the WePlus application for mobile-gadget merchants. Designed SQL database structures and backend-to-frontend API communication, and developed a cart system that automatically applied promotional offers based on coupon conditions.
+Contributed to the WePlus mobile app for mobile-gadget merchants, supporting **10K+ downloads**.
+
+* Built backend APIs and SQL database logic for merchant and shopping flows.
+* Developed cart functionality, including add-to-cart, cart updates, item validation, and checkout preparation.
+* Implemented promotion code and coupon logic, enabling discounts to be applied to eligible products in the shopping cart.
 
 **Tools**: Node.js, SQL, JSON, React, Yarn, Figma
 
 ---
 
+## Teaching Assistant and Tutor
+
+**2021 - 2022**
+
+Taught programming, algorithms, mathematics, and science through university teaching assistant work and private tutoring.
+
+* **Teaching Assistant - Python Programming**: Taught Python programming, explained core coding concepts, guided students through coursework, and provided assignment feedback.
+* **Python and Algorithm Tutor**: Tutored Python and algorithmic problem solving for students preparing for programming coursework and competitions.
+* **Computer Programming Tutor**: Supported students with Python/computer programming fundamentals and hands-on problem solving.
+* **Math Tutor**: Tutored Grade 11 mathematics.
+* **Entrance Exam Tutor**: Helped students prepare for Grade 10 entrance examinations.
+* **Physics Tutor**: Tutored physics for English program students.
+
+---
+
 # Projects
+
+## LINE Classroom Bot
+
+Built a LINE bot using Google Apps Script for classroom operations.
+
+* Registered users and stored user IDs.
+* Reported individual test scores to students.
+* Checked classroom attendance and attendance windows.
+* Automated simple teacher-student workflows through LINE chat.
+
+---
 
 ## Blockchain-Based Voting System
 
@@ -87,7 +114,17 @@ Developed image-processing and game-AI projects, including a bacteria detection 
 * **Bcoffee** - Cafe backend built with Go, SQL, MongoDB, and Docker.
 * **Tax Invoice** - Java application using object-oriented programming and phpMyAdmin.
 * **Linked Out** - Job board built with Bootstrap, HTML, and RabbitMQ.
-* **LINE Bot** - Teaching-assistant bot built with Google Apps Script, Dialogflow, and webhooks.
+
+---
+
+# Activities
+
+* **Larngear Camp 18**
+* **Vishnu Camp 17**
+* **Yim D A Ban-Rub-Mong**
+* **FE Camp**
+* **Faculty of Engineering Recreation**
+* **Female Freshmen Orientation - MC Entertainment**
 
 ---
 
@@ -103,14 +140,55 @@ Developed image-processing and game-AI projects, including a bacteria detection 
 
 ---
 
-# Awards
+# Awards and Certifications
 
-* **RYW Programming Contest** - 1st Place, 2016
-* **ICT Challenge, KMUTT** - 3rd Place, 2016
-* **Thailand Computer Olympiad Camp (POSN 2), Thammasat University Center** - Qualified, 2017
-* **Petch Yod Mongkut Mathematics Competition** - Qualified, 2017
-* **Code++ Challenge, Assumption University** - Silver Medal, 2017
 * **O-NET Mathematics** - Perfect Score (100/100)
+* **Thailand Computer Olympiad Camp (POSN 1 and POSN 2)** - Qualified through competitive selection
+* **Petch Yod Mongkut Mathematics Competition** - Qualified
+* **e-Quiz, Chulalongkorn University**
+* **Secure Coding Assessment** - CISO, Agoda, 2022
+* **Code++ Challenge, Assumption University** - Silver Medal
+* **ICT Challenge 2016, KMUTT** - 2nd Place
+* **RYW Programming Contest** - 1st Place
+* **Suankularb Olympiad of Informatics 2017**
+* **ICT Junior Camp #8 - Smart City Smart Community**
+* **SQL - MySQL for Data Analytics and Business Intelligence** - 10-hour online course
+* **Machine Learning Foundations: A Case Study Approach** - University of Washington / Coursera
+
+---
+
+# Portfolio Gallery
+
+<div class="portfolio-gallery">
+  <figure><img src="/assets/img/portfolio/slide-1.jpg" alt="Portfolio title slide"><figcaption>Portfolio title</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-2.jpg" alt="Computer Olympic 2 certificate"><figcaption>Computer Olympic #2</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-3.jpg" alt="Computer Olympic 2 certificate"><figcaption>Computer Olympic #2</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-4.jpg" alt="Secure coding certificate"><figcaption>Secure Coding certificate</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-5.jpg" alt="Petch Yod Mongkut 19th math certificate"><figcaption>Petch Yod Mongkut 19th Math</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-6.jpg" alt="e-Quiz Chulalongkorn University certificate"><figcaption>e-Quiz Chulalongkorn University</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-7.jpg" alt="Computer Olympic 1 certificate"><figcaption>Computer Olympic #1</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-8.jpg" alt="Computer Olympic 1 certificate"><figcaption>Computer Olympic #1</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-9.jpg" alt="Programming contest certificate"><figcaption>Programming contest certificate</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-10.jpg" alt="Code++ Challenge ABAC silver medal"><figcaption>Code++ Challenge ABAC - Silver Medal</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-11.jpg" alt="ICT Challenge 2016 certificate"><figcaption>ICT Challenge 2016 - 2nd Place</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-12.jpg" alt="Mathematics certificate"><figcaption>Academic achievement certificate</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-13.jpg" alt="Computer Olympic certificate"><figcaption>Computer Olympic certificate</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-14.jpg" alt="Samsenwittayalai certificate"><figcaption>Samsenwittayalai certificate</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-15.jpg" alt="Suankularb Olympiad of Informatics certificate"><figcaption>Suankularb Olympiad of Informatics 2017</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-16.jpg" alt="School academic certificate"><figcaption>School academic certificate</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-17.jpg" alt="ICT Junior Camp certificate"><figcaption>ICT Junior Camp #8</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-18.jpg" alt="Academic competition certificate"><figcaption>Academic competition certificate</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-19.jpg" alt="SQL MySQL certificate"><figcaption>SQL - MySQL for Data Analytics and BI</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-20.jpg" alt="Machine learning certificate"><figcaption>Machine Learning Foundations - University of Washington</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-21.jpg" alt="KhunLook app"><figcaption>KhunLook mobile app</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-22.jpg" alt="LINE classroom bot"><figcaption>LINE classroom bot</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-23.jpg" alt="Activities list"><figcaption>Activities</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-24.jpg" alt="Python and algorithm tutor"><figcaption>Tutor - Python and algorithm</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-25.jpg" alt="Computer programming tutor"><figcaption>Tutor - Python/computer programming</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-26.jpg" alt="Entrance examination tutor"><figcaption>Tutor - Grade 10 entrance exam</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-27.jpg" alt="Math tutor"><figcaption>Tutor - Grade 11 math</figcaption></figure>
+  <figure><img src="/assets/img/portfolio/slide-28.jpg" alt="Physics tutor"><figcaption>Tutor - Physics English program</figcaption></figure>
+</div>
 
 ---
 
