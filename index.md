@@ -178,6 +178,14 @@ Developed image-processing and game-AI projects, including a bacteria detection 
       <img src="/assets/img/awards/computer-olympic-selection.jpg" alt="Computer Olympiad selection certificate">
       <figcaption>Computer Olympiad selection certificate</figcaption>
     </figure>
+    <figure>
+      <img src="/assets/img/awards/computer-olympic-posn-1-2558.jpg" alt="Computer Olympiad POSN 1 camp 2558 certificate">
+      <figcaption>Computer Olympiad POSN 1 camp 2558 certificate</figcaption>
+    </figure>
+    <figure>
+      <img src="/assets/img/awards/computer-olympic-posn-1-2559.jpg" alt="Computer Olympiad POSN 1 camp 2559 certificate">
+      <figcaption>Computer Olympiad POSN 1 camp 2559 certificate</figcaption>
+    </figure>
   </div>
 
 * **Petch Yod Mongkut Mathematics Competition** - Qualified
