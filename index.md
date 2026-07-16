@@ -181,7 +181,23 @@ Developed image-processing and game-AI projects, including a bacteria detection 
   </div>
 
 * **Petch Yod Mongkut Mathematics Competition** - Qualified
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/petch-yod-mongkut.jpg" alt="Petch Yod Mongkut Mathematics Competition certificate">
+      <figcaption>Petch Yod Mongkut Mathematics Competition certificate</figcaption>
+    </figure>
+  </div>
+
 * **e-Quiz, Chulalongkorn University**
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/e-quiz-chulalongkorn.jpg" alt="e-Quiz Chulalongkorn University certificate">
+      <figcaption>e-Quiz Chulalongkorn University certificate</figcaption>
+    </figure>
+  </div>
+
 * **Secure Coding Assessment** - CISO, Agoda, 2022
 
   <div class="award-gallery">
