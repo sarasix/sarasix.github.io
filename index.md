@@ -1,3 +1,17 @@
+# Education
+
+## Chulalongkorn University
+
+**B.Eng. in Computer Engineering · 2018 - 2022**
+
+**M.Eng. in Computer Engineering · 2026**
+
+## Samsenwittayalai School
+
+**Senior High School · 2015 - 2017**
+
+---
+
 # Skills
 
 ---
@@ -146,20 +160,6 @@ Developed image-processing and game-AI projects, including a bacteria detection 
 * **FE Camp**
 * **Faculty of Engineering Recreation**
 * **Female Freshmen Orientation - MC Entertainment**
-
----
-
-# Education
-
-## Chulalongkorn University
-
-**B.Eng. in Computer Engineering · 2018 - 2022**
-
-**M.Eng. in Computer Engineering · 2026**
-
-## Samsenwittayalai School
-
-**Senior High School · 2015 - 2017**
 
 ---
 
