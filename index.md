@@ -27,7 +27,10 @@
 
 # Work Experience
 
-## Software Engineer at Agoda
+<div class="experience-heading">
+  <img class="experience-logo experience-logo--wide" src="/assets/img/logos/agoda.svg" alt="Agoda logo">
+  <h2>Software Engineer at Agoda</h2>
+</div>
 
 **July 2022 - Present**
 
@@ -51,7 +54,10 @@ Building distributed microservices for Agoda's Flights team, supporting the sear
 
 ---
 
-## KhunLook - Software Developer
+<div class="experience-heading">
+  <img class="experience-logo" src="/assets/img/logos/khunlook.png" alt="KhunLook logo">
+  <h2>KhunLook - Software Developer</h2>
+</div>
 
 **August 2021 - May 2022**
 
@@ -64,7 +70,13 @@ Developed Flutter/Dart features for a mobile health app with **100K+ downloads**
 
 ---
 
-## Software Engineer Intern at Dplus Intertrade
+<div class="experience-heading">
+  <span class="experience-logo-pair" aria-label="Dplus and WePlus logos">
+    <img src="/assets/img/logos/dplus-weplus.png" alt="Dplus logo">
+    <img src="/assets/img/logos/weplus.png" alt="WePlus logo">
+  </span>
+  <h2>Software Engineer Intern at Dplus Intertrade</h2>
+</div>
 
 **June 2021 - August 2021**
 

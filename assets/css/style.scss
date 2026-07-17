@@ -15,6 +15,49 @@ header > img {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
 }
 
+.experience-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 8px;
+}
+
+.experience-heading h2 {
+  margin: 0;
+}
+
+.experience-logo,
+.experience-logo-pair img {
+  display: block;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  padding: 5px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.experience-logo--wide {
+  width: 86px;
+  height: 42px;
+  flex-basis: 86px;
+}
+
+.experience-logo-pair {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+}
+
+.experience-logo-pair img {
+  width: 42px;
+  height: 42px;
+  flex-basis: 42px;
+  padding: 4px;
+}
+
 .portfolio-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -111,6 +154,15 @@ header > img {
 @media print, screen and (max-width: 560px) {
   .line-bot-gallery {
     grid-template-columns: 1fr;
+  }
+
+  .experience-heading {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .experience-heading h2 {
+    line-height: 1.25;
   }
 }
 
