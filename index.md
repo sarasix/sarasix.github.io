@@ -153,7 +153,9 @@ Developed image-processing and game-AI projects, including a bacteria detection 
 
 ## Chulalongkorn University
 
-**Bachelor of Engineering in Computer Engineering · 2018 - 2022**
+**B.Eng. in Computer Engineering · 2018 - 2022**
+
+**M.Eng. in Computer Engineering · 2026**
 
 ## Samsenwittayalai School
 
