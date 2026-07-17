@@ -167,6 +167,15 @@ Developed image-processing and game-AI projects, including a bacteria detection 
 # Awards and Certifications
 
 * **O-NET Mathematics** - Perfect Score (100/100)
+* **Fast Math Competition (180 IQ)** - 1st Place
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/fast-math-180-iq.jpg" alt="Fast Math Competition 180 IQ first place certificate">
+      <figcaption>Fast Math Competition 180 IQ first place certificate</figcaption>
+    </figure>
+  </div>
+
 * **Thailand Computer Olympiad Camp (POSN 1 and POSN 2)** - Qualified through competitive selection
 
   <div class="award-gallery">
