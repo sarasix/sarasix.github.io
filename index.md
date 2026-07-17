@@ -176,6 +176,15 @@ Developed image-processing and game-AI projects, including a bacteria detection 
     </figure>
   </div>
 
+* **Mathematics Aptitude Competition** - 1st Place
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/mathematics-aptitude-competition.jpg" alt="Mathematics Aptitude Competition first place certificate">
+      <figcaption>Mathematics Aptitude Competition first place certificate</figcaption>
+    </figure>
+  </div>
+
 * **Thailand Computer Olympiad Camp (POSN 1 and POSN 2)** - Qualified through competitive selection
 
   <div class="award-gallery">
