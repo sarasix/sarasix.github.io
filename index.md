@@ -278,6 +278,15 @@ Developed image-processing and game-AI projects, including a bacteria detection 
     </figure>
   </div>
 
+* **15th Triam Udom Mathematics and Science Olympiad** - Participant
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/triam-udom-math-science-olympiad-15.jpg" alt="15th Triam Udom Mathematics and Science Olympiad certificate">
+      <figcaption>15th Triam Udom Mathematics and Science Olympiad certificate</figcaption>
+    </figure>
+  </div>
+
 * **ICT Junior Camp #8 - Smart City Smart Community**
 * **SQL - MySQL for Data Analytics and Business Intelligence** - 10-hour online course
 * **Machine Learning Foundations: A Case Study Approach** - University of Washington / Coursera
