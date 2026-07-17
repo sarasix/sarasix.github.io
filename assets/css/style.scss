@@ -26,8 +26,7 @@ header > img {
   margin: 0;
 }
 
-.experience-logo,
-.experience-logo-pair img {
+.experience-logo {
   display: block;
   width: 52px;
   height: 52px;
@@ -43,19 +42,6 @@ header > img {
   width: 86px;
   height: 42px;
   flex-basis: 86px;
-}
-
-.experience-logo-pair {
-  display: flex;
-  flex: 0 0 auto;
-  gap: 6px;
-}
-
-.experience-logo-pair img {
-  width: 42px;
-  height: 42px;
-  flex-basis: 42px;
-  padding: 4px;
 }
 
 .portfolio-gallery {

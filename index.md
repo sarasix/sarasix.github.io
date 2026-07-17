@@ -71,10 +71,7 @@ Developed Flutter/Dart features for a mobile health app with **100K+ downloads**
 ---
 
 <div class="experience-heading">
-  <span class="experience-logo-pair" aria-label="Dplus and WePlus logos">
-    <img src="/assets/img/logos/dplus-weplus.png" alt="Dplus logo">
-    <img src="/assets/img/logos/weplus.png" alt="WePlus logo">
-  </span>
+  <img class="experience-logo" src="/assets/img/logos/dplus-weplus.png" alt="Dplus logo">
   <h2>Software Engineer Intern at Dplus Intertrade</h2>
 </div>
 
