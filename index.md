@@ -185,6 +185,15 @@ Developed image-processing and game-AI projects, including a bacteria detection 
     </figure>
   </div>
 
+* **Royal Trophy Mathematics Competition** - Participant
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/royal-trophy-mathematics-competition.jpg" alt="Royal Trophy Mathematics Competition participation certificate">
+      <figcaption>Royal Trophy Mathematics Competition participation certificate</figcaption>
+    </figure>
+  </div>
+
 * **Thailand Computer Olympiad Camp (POSN 1 and POSN 2)** - Qualified through competitive selection
 
   <div class="award-gallery">
