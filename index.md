@@ -194,6 +194,15 @@ Developed image-processing and game-AI projects, including a bacteria detection 
     </figure>
   </div>
 
+* **International Academic Mathematics Competition 2014** - Bronze Medal (Education Area Round)
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/international-academic-mathematics-2014-bronze.jpg" alt="International Academic Mathematics Competition 2014 bronze medal certificate">
+      <figcaption>International Academic Mathematics Competition 2014 bronze medal certificate</figcaption>
+    </figure>
+  </div>
+
 * **Thailand Computer Olympiad Camp (POSN 1 and POSN 2)** - Qualified through competitive selection
 
   <div class="award-gallery">
@@ -288,6 +297,14 @@ Developed image-processing and game-AI projects, including a bacteria detection 
   </div>
 
 * **ICT Junior Camp #8 - Smart City Smart Community**
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/ict-junior-camp-8.jpg" alt="ICT Junior Camp 8 Smart City Smart Community certificate">
+      <figcaption>ICT Junior Camp #8 Smart City Smart Community certificate</figcaption>
+    </figure>
+  </div>
+
 * **SQL - MySQL for Data Analytics and Business Intelligence** - 10-hour online course
 * **Machine Learning Foundations: A Case Study Approach** - University of Washington / Coursera
 
