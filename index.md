@@ -90,29 +90,26 @@ Built a LINE bot using Google Apps Script for classroom operations.
 * Checked classroom attendance and attendance windows, treating early or late check-ins as absent.
 * Automated simple teacher-student workflows through LINE chat.
 
-**Register user**
-
-<p align="center">
-  <img src="/assets/img/line-bot/register-user.png" alt="LINE Classroom Bot register user flow" width="320">
-</p>
-
-**Report individual score test**
-
-<p align="center">
-  <img src="/assets/img/line-bot/report-individual-score.png" alt="LINE Classroom Bot individual score report" width="320">
-</p>
-
-**Check attendance in the classroom**
-
 Students can check in only within the allowed time window. Check-ins before the window or after the late window are marked as absent.
 
-<p align="center">
-  <img src="/assets/img/line-bot/check-attendance-window.png" alt="LINE Classroom Bot attendance time window" width="320">
-</p>
-
-<p align="center">
-  <img src="/assets/img/line-bot/check-attendance-success.png" alt="LINE Classroom Bot attendance completed" width="320">
-</p>
+<div class="line-bot-gallery">
+  <figure>
+    <img src="/assets/img/line-bot/register-user.png" alt="LINE Classroom Bot register user flow">
+    <figcaption><strong>Register user</strong><span>LINE Classroom Bot register user flow</span></figcaption>
+  </figure>
+  <figure>
+    <img src="/assets/img/line-bot/report-individual-score.png" alt="LINE Classroom Bot individual score report">
+    <figcaption><strong>Report individual score test</strong><span>LINE Classroom Bot individual score report</span></figcaption>
+  </figure>
+  <figure>
+    <img src="/assets/img/line-bot/check-attendance-window.png" alt="LINE Classroom Bot attendance time window">
+    <figcaption><strong>Check attendance in the classroom</strong><span>LINE Classroom Bot attendance time window</span></figcaption>
+  </figure>
+  <figure>
+    <img src="/assets/img/line-bot/check-attendance-success.png" alt="LINE Classroom Bot attendance completed">
+    <figcaption><strong>Attendance completed</strong><span>LINE Classroom Bot attendance completed</span></figcaption>
+  </figure>
+</div>
 
 ---
 

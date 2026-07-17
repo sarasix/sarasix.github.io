@@ -69,6 +69,51 @@ header > img {
   line-height: 1.35;
 }
 
+.line-bot-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.line-bot-gallery figure {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+
+.line-bot-gallery img {
+  display: block;
+  width: 100%;
+  height: 340px;
+  object-fit: contain;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+}
+
+.line-bot-gallery figcaption {
+  color: #555;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.line-bot-gallery figcaption strong,
+.line-bot-gallery figcaption span {
+  display: block;
+}
+
+.line-bot-gallery figcaption strong {
+  color: #333;
+}
+
+@media print, screen and (max-width: 560px) {
+  .line-bot-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media print, screen and (max-width: 960px) {
   header > img {
     width: 180px;
