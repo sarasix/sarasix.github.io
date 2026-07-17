@@ -270,6 +270,14 @@ Developed image-processing and game-AI projects, including a bacteria detection 
   </div>
 
 * **Suankularb Olympiad of Informatics 2017**
+
+  <div class="award-gallery">
+    <figure>
+      <img src="/assets/img/awards/suankularb-olympiad-informatics-2017.jpg" alt="Suankularb Olympiad of Informatics 2017 certificate">
+      <figcaption>Suankularb Olympiad of Informatics 2017 certificate</figcaption>
+    </figure>
+  </div>
+
 * **ICT Junior Camp #8 - Smart City Smart Community**
 * **SQL - MySQL for Data Analytics and Business Intelligence** - 10-hour online course
 * **Machine Learning Foundations: A Case Study Approach** - University of Washington / Coursera
