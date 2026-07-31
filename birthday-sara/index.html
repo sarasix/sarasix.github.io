@@ -98,6 +98,58 @@
         pointer-events: none;
       }
 
+      .cake-touch-zone {
+        position: absolute;
+        left: 54%;
+        bottom: 0;
+        z-index: 5;
+        display: grid;
+        width: min(28vw, 420px);
+        height: min(45vh, 430px);
+        place-items: end center;
+        cursor: grab;
+        touch-action: none;
+        transform: translateX(-50%);
+      }
+
+      .cake-touch-zone.is-dragging {
+        cursor: grabbing;
+      }
+
+      .cake-touch-zone span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.3rem;
+        margin-bottom: 1.2rem;
+        padding: 0 0.9rem;
+        color: rgba(255, 246, 226, 0.88);
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        background: rgba(5, 12, 29, 0.38);
+        box-shadow: 0 10px 34px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(16px);
+        opacity: 0.84;
+        transition:
+          opacity 180ms ease,
+          transform 180ms ease;
+      }
+
+      .cake-touch-zone:hover span,
+      .cake-touch-zone:focus-visible span,
+      .cake-touch-zone.is-dragging span {
+        opacity: 1;
+        transform: translateY(-2px);
+      }
+
+      .cake-touch-zone:focus-visible {
+        outline: 0;
+      }
+
       .sparkle-field {
         position: absolute;
         inset: 0;
@@ -143,11 +195,13 @@
         min-height: 100svh;
         gap: clamp(1.5rem, 4vw, 4rem);
         padding: clamp(1.25rem, 4vw, 4rem);
+        pointer-events: none;
       }
 
       .hero-copy {
         width: min(760px, 100%);
         padding-top: clamp(1rem, 5vh, 4rem);
+        pointer-events: auto;
       }
 
       .eyebrow {
@@ -273,6 +327,7 @@
           0 24px 88px rgba(0, 0, 0, 0.46),
           inset 0 1px rgba(255, 255, 255, 0.55);
         backdrop-filter: blur(22px);
+        pointer-events: auto;
         transform-style: preserve-3d;
         animation: photo-drift 6.2s ease-in-out infinite;
       }
@@ -421,11 +476,26 @@
         }
 
         .sara-card {
-          justify-self: center;
+          justify-self: start;
           align-self: center;
-          width: min(250px, 72vw);
-          margin: 0 0 1rem;
+          width: min(224px, 58vw);
+          margin: 0 0 1rem 0.2rem;
           animation-duration: 7.5s;
+        }
+
+        .cake-touch-zone {
+          right: 0.35rem;
+          bottom: 1.6rem;
+          left: auto;
+          width: min(54vw, 230px);
+          height: 33vh;
+          transform: none;
+        }
+
+        .cake-touch-zone span {
+          margin-bottom: 0.7rem;
+          font-size: 0.68rem;
+          letter-spacing: 0.06em;
         }
 
         .message-panel {
@@ -489,6 +559,14 @@
   <body>
     <main class="birthday-page" aria-label="Happy Birthday Sara 3D rooftop card">
       <canvas id="cake-scene" aria-hidden="true"></canvas>
+      <div
+        class="cake-touch-zone"
+        role="button"
+        tabindex="0"
+        aria-label="Drag to rotate Sara's 3D birthday cake"
+      >
+        <span>Drag cake to spin</span>
+      </div>
       <div class="sparkle-field" aria-hidden="true"></div>
 
       <section class="hero">
@@ -571,6 +649,16 @@
         metalness: 0.85,
       });
       const flame = new THREE.MeshBasicMaterial({ color: 0xfff0a6 });
+      const saraPhotoMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        side: THREE.DoubleSide,
+      });
+
+      new THREE.TextureLoader().load("/assets/img/birthday/sara-photo.jpg", (texture) => {
+        texture.colorSpace = THREE.SRGBColorSpace;
+        saraPhotoMaterial.map = texture;
+        saraPhotoMaterial.needsUpdate = true;
+      });
 
       function tier(radius, height, y, material) {
         const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius * 0.96, height, 96), material);
@@ -618,6 +706,40 @@
         group.add(light);
       }
 
+      const ediblePhoto = new THREE.Mesh(new THREE.CircleGeometry(0.48, 96), saraPhotoMaterial);
+      ediblePhoto.position.set(0, 1.695, 0.04);
+      ediblePhoto.rotation.x = -Math.PI / 2;
+      group.add(ediblePhoto);
+
+      const ediblePhotoFrame = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.028, 18, 128), gold);
+      ediblePhotoFrame.position.copy(ediblePhoto.position);
+      ediblePhotoFrame.position.y += 0.006;
+      ediblePhotoFrame.rotation.x = Math.PI / 2;
+      group.add(ediblePhotoFrame);
+
+      const topper = new THREE.Group();
+      topper.position.set(0, 2.36, -0.1);
+      group.add(topper);
+
+      const topperStick = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.84, 18), gold);
+      topperStick.position.set(0, -0.44, -0.03);
+      topper.add(topperStick);
+
+      const topperBack = new THREE.Mesh(
+        new THREE.CircleGeometry(0.62, 96),
+        new THREE.MeshStandardMaterial({ color: 0xf7c96a, roughness: 0.26, metalness: 0.72, side: THREE.DoubleSide })
+      );
+      topperBack.position.z = -0.016;
+      topper.add(topperBack);
+
+      const topperPhoto = new THREE.Mesh(new THREE.CircleGeometry(0.56, 96), saraPhotoMaterial);
+      topperPhoto.position.z = 0.01;
+      topper.add(topperPhoto);
+
+      const topperFrame = new THREE.Mesh(new THREE.TorusGeometry(0.58, 0.035, 18, 128), gold);
+      topperFrame.position.z = 0.025;
+      topper.add(topperFrame);
+
       const confetti = [];
       const colors = [0xf7c96a, 0xff8fb8, 0xffffff, 0x7edcff, 0xff6f7f];
       for (let i = 0; i < 125; i += 1) {
@@ -657,18 +779,113 @@
         camera.updateProjectionMatrix();
 
         const mobile = width < 700;
-        group.scale.setScalar(mobile ? 0.68 : 0.88);
-        group.position.set(mobile ? 1.45 : 0.85, mobile ? -2.1 : -2.05, 0);
+        group.scale.setScalar(mobile ? 0.66 : 0.9);
+        group.position.set(mobile ? 0.82 : 0.72, mobile ? -2.05 : -2.15, 0);
       }
 
       resize();
       window.addEventListener("resize", resize);
 
       let burstUntil = 0;
+      const cakeTouchZone = document.querySelector(".cake-touch-zone");
+      const dragState = {
+        isDragging: false,
+        lastX: 0,
+        lastY: 0,
+        targetX: 0.04,
+        targetY: 0.22,
+        currentX: 0.04,
+        currentY: 0.22,
+        targetZoom: 9,
+      };
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function updateCakeFromDrag(event) {
+        const dx = event.clientX - dragState.lastX;
+        const dy = event.clientY - dragState.lastY;
+        dragState.lastX = event.clientX;
+        dragState.lastY = event.clientY;
+        dragState.targetY += dx * 0.012;
+        dragState.targetX = clamp(dragState.targetX + dy * 0.006, -0.38, 0.42);
+      }
+
+      cakeTouchZone.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        dragState.isDragging = true;
+        dragState.lastX = event.clientX;
+        dragState.lastY = event.clientY;
+        cakeTouchZone.classList.add("is-dragging");
+        cakeTouchZone.setPointerCapture(event.pointerId);
+      });
+
+      cakeTouchZone.addEventListener("pointermove", (event) => {
+        if (!dragState.isDragging) {
+          return;
+        }
+        event.preventDefault();
+        updateCakeFromDrag(event);
+      });
+
+      function endDrag(event) {
+        dragState.isDragging = false;
+        cakeTouchZone.classList.remove("is-dragging");
+        if (event && cakeTouchZone.hasPointerCapture(event.pointerId)) {
+          cakeTouchZone.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      cakeTouchZone.addEventListener("pointerup", endDrag);
+      cakeTouchZone.addEventListener("pointercancel", endDrag);
+      cakeTouchZone.addEventListener("lostpointercapture", () => {
+        dragState.isDragging = false;
+        cakeTouchZone.classList.remove("is-dragging");
+      });
+
+      cakeTouchZone.addEventListener(
+        "wheel",
+        (event) => {
+          event.preventDefault();
+          dragState.targetZoom = clamp(dragState.targetZoom + event.deltaY * 0.004, 7.2, 10.6);
+        },
+        { passive: false }
+      );
+
+      cakeTouchZone.addEventListener("keydown", (event) => {
+        const keyMap = {
+          ArrowLeft: () => {
+            dragState.targetY -= 0.28;
+          },
+          ArrowRight: () => {
+            dragState.targetY += 0.28;
+          },
+          ArrowUp: () => {
+            dragState.targetX = clamp(dragState.targetX - 0.12, -0.38, 0.42);
+          },
+          ArrowDown: () => {
+            dragState.targetX = clamp(dragState.targetX + 0.12, -0.38, 0.42);
+          },
+        };
+
+        if (keyMap[event.key]) {
+          event.preventDefault();
+          keyMap[event.key]();
+        }
+      });
+
       function animate(now) {
         const time = now * 0.001;
-        group.rotation.y = Math.sin(time * 0.45) * 0.18;
-        group.rotation.x = Math.sin(time * 0.31) * 0.035;
+        if (!dragState.isDragging) {
+          dragState.targetY += 0.0014;
+        }
+
+        dragState.currentY += (dragState.targetY - dragState.currentY) * 0.1;
+        dragState.currentX += (dragState.targetX - dragState.currentX) * 0.1;
+        camera.position.z += (dragState.targetZoom - camera.position.z) * 0.08;
+        group.rotation.y = dragState.currentY;
+        group.rotation.x = dragState.currentX + Math.sin(time * 0.31) * 0.018;
 
         confetti.forEach((piece, index) => {
           piece.position.y -= burstUntil > now ? piece.userData.speed * -5 : piece.userData.speed;
