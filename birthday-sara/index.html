@@ -3,27 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Happy Birthday Sara</title>
-    <meta
-      name="description"
-      content="A cinematic rooftop birthday card for Sara with a 3D cake, skyline view, and birthday wishes."
-    >
-    <meta property="og:title" content="Happy Birthday Sara">
-    <meta property="og:description" content="A rooftop birthday celebration made for Sara.">
-    <meta property="og:image" content="https://sarasix.github.io/assets/img/birthday/sara-rooftop-cake.png">
+    <title>happy birthday sara</title>
+    <meta name="description" content="A VR-style 3D rooftop birthday cake for Sara.">
+    <meta property="og:title" content="happy birthday sara">
+    <meta property="og:description" content="A VR-style 3D rooftop birthday cake for Sara.">
+    <meta property="og:image" content="https://sarasix.github.io/assets/img/birthday/rooftop-empty-vr.png">
     <meta property="og:type" content="website">
     <link rel="icon" href="/assets/img/birthday/sara-photo.jpg">
     <style>
-      :root {
-        color-scheme: dark;
-        --gold: #f7c96a;
-        --rose: #ff8fb8;
-        --cream: #fff4dd;
-        --ink: #08101f;
-        --night: #0b1d3a;
-        --glass: rgba(8, 16, 31, 0.34);
-      }
-
       * {
         box-sizing: border-box;
       }
@@ -31,415 +18,27 @@
       html,
       body {
         width: 100%;
-        min-height: 100%;
+        height: 100%;
         margin: 0;
+        overflow: hidden;
+        background: #050914;
       }
 
       body {
-        overflow-x: hidden;
-        color: var(--cream);
-        font-family:
-          Inter,
-          ui-sans-serif,
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          sans-serif;
-        background: var(--ink);
-      }
-
-      button {
-        font: inherit;
-      }
-
-      .birthday-page {
-        position: relative;
-        min-height: 100svh;
-        isolation: isolate;
-        overflow: hidden;
-        background:
-          linear-gradient(90deg, rgba(4, 9, 22, 0.75), rgba(4, 9, 22, 0.18) 46%, rgba(4, 9, 22, 0.6)),
-          linear-gradient(180deg, rgba(5, 12, 29, 0.22), rgba(5, 12, 29, 0.82)),
-          url("/assets/img/birthday/sara-rooftop-cake.png") center / cover no-repeat;
-      }
-
-      .birthday-page::before {
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        content: "";
-        background:
-          radial-gradient(circle at 25% 22%, rgba(255, 190, 101, 0.32), transparent 22rem),
-          radial-gradient(circle at 83% 16%, rgba(255, 143, 184, 0.24), transparent 20rem),
-          linear-gradient(180deg, transparent 0, rgba(5, 12, 29, 0.72) 82%);
-        mix-blend-mode: screen;
-      }
-
-      .birthday-page::after {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-        content: "";
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-        background-size: 84px 84px;
-        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2), transparent 70%);
-      }
-
-      #cake-scene {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-      }
-
-      .cake-touch-zone {
-        position: absolute;
-        left: 54%;
-        bottom: 0;
-        z-index: 5;
-        display: grid;
-        width: min(28vw, 420px);
-        height: min(45vh, 430px);
-        place-items: end center;
         cursor: grab;
+        user-select: none;
+        -webkit-user-select: none;
         touch-action: none;
-        transform: translateX(-50%);
       }
 
-      .cake-touch-zone.is-dragging {
+      body:active {
         cursor: grabbing;
       }
 
-      .cake-touch-zone span {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 2.3rem;
-        margin-bottom: 1.2rem;
-        padding: 0 0.9rem;
-        color: rgba(255, 246, 226, 0.88);
-        font-size: 0.8rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        border-radius: 999px;
-        background: rgba(5, 12, 29, 0.38);
-        box-shadow: 0 10px 34px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(16px);
-        opacity: 0.84;
-        transition:
-          opacity 180ms ease,
-          transform 180ms ease;
-      }
-
-      .cake-touch-zone:hover span,
-      .cake-touch-zone:focus-visible span,
-      .cake-touch-zone.is-dragging span {
-        opacity: 1;
-        transform: translateY(-2px);
-      }
-
-      .cake-touch-zone:focus-visible {
-        outline: 0;
-      }
-
-      .sparkle-field {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        pointer-events: none;
-        overflow: hidden;
-      }
-
-      .sparkle {
-        position: absolute;
-        width: 0.42rem;
-        height: 0.42rem;
-        border-radius: 999px;
-        background: var(--gold);
-        box-shadow: 0 0 16px rgba(247, 201, 106, 0.88);
-        animation: float-sparkle var(--duration) linear infinite;
-        opacity: 0;
-      }
-
-      @keyframes float-sparkle {
-        0% {
-          transform: translate3d(0, 12vh, 0) scale(0.6) rotate(0deg);
-          opacity: 0;
-        }
-        16% {
-          opacity: 0.85;
-        }
-        78% {
-          opacity: 0.95;
-        }
-        100% {
-          transform: translate3d(var(--drift), -112vh, 0) scale(1.1) rotate(360deg);
-          opacity: 0;
-        }
-      }
-
-      .hero {
-        position: relative;
-        z-index: 3;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 300px;
-        align-items: center;
-        min-height: 100svh;
-        gap: clamp(1.5rem, 4vw, 4rem);
-        padding: clamp(1.25rem, 4vw, 4rem);
-        pointer-events: none;
-      }
-
-      .hero-copy {
-        width: min(760px, 100%);
-        padding-top: clamp(1rem, 5vh, 4rem);
-        pointer-events: auto;
-      }
-
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.55rem;
-        margin: 0 0 1.2rem;
-        color: #ffe3a5;
-        font-size: clamp(0.78rem, 1vw, 0.95rem);
-        font-weight: 800;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        text-shadow: 0 0 28px rgba(247, 201, 106, 0.5);
-      }
-
-      .eyebrow::before,
-      .eyebrow::after {
+      #scene {
         display: block;
-        width: 2.2rem;
-        height: 1px;
-        content: "";
-        background: linear-gradient(90deg, transparent, var(--gold));
-      }
-
-      .eyebrow::after {
-        background: linear-gradient(90deg, var(--gold), transparent);
-      }
-
-      h1 {
-        max-width: 780px;
-        margin: 0;
-        color: #fff9ed;
-        font-size: clamp(3.2rem, 11vw, 9.6rem);
-        font-weight: 950;
-        line-height: 0.86;
-        letter-spacing: 0;
-        text-wrap: balance;
-        text-shadow:
-          0 0 22px rgba(255, 255, 255, 0.16),
-          0 0 52px rgba(247, 201, 106, 0.38),
-          0 10px 42px rgba(0, 0, 0, 0.58);
-      }
-
-      h1 span {
-        display: block;
-        color: transparent;
-        background: linear-gradient(100deg, #fff5d7 0%, var(--gold) 32%, var(--rose) 64%, #ffffff 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        filter: drop-shadow(0 0 28px rgba(255, 143, 184, 0.34));
-      }
-
-      .wish {
-        max-width: 620px;
-        margin: 1.55rem 0 2rem;
-        color: rgba(255, 246, 226, 0.86);
-        font-size: clamp(1.02rem, 1.55vw, 1.36rem);
-        line-height: 1.7;
-        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.58);
-      }
-
-      .controls {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.9rem;
-        align-items: center;
-      }
-
-      .wish-button,
-      .photo-button {
-        min-height: 3.15rem;
-        border: 1px solid rgba(255, 255, 255, 0.34);
-        border-radius: 999px;
-        cursor: pointer;
-        backdrop-filter: blur(18px);
-        transition:
-          transform 180ms ease,
-          box-shadow 180ms ease,
-          border-color 180ms ease;
-      }
-
-      .wish-button {
-        padding: 0 1.4rem;
-        color: #21140a;
-        font-weight: 900;
-        background: linear-gradient(135deg, #fff3c0, var(--gold) 55%, #ffaac6);
-        box-shadow:
-          0 16px 48px rgba(247, 201, 106, 0.32),
-          inset 0 1px rgba(255, 255, 255, 0.6);
-      }
-
-      .photo-button {
-        padding: 0 1.2rem;
-        color: var(--cream);
-        font-weight: 750;
-        background: rgba(255, 255, 255, 0.08);
-      }
-
-      .wish-button:hover,
-      .photo-button:hover,
-      .wish-button:focus-visible,
-      .photo-button:focus-visible {
-        border-color: rgba(255, 255, 255, 0.74);
-        box-shadow:
-          0 20px 60px rgba(247, 201, 106, 0.36),
-          0 0 0 5px rgba(255, 255, 255, 0.12);
-        outline: 0;
-        transform: translateY(-2px);
-      }
-
-      .sara-card {
-        position: relative;
-        align-self: end;
-        width: min(300px, 88vw);
-        margin: 0 auto clamp(1rem, 8vh, 5rem);
-        padding: 0.72rem;
-        border: 1px solid rgba(255, 255, 255, 0.38);
-        border-radius: 1.35rem;
-        background:
-          linear-gradient(160deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08)),
-          rgba(255, 255, 255, 0.1);
-        box-shadow:
-          0 24px 88px rgba(0, 0, 0, 0.46),
-          inset 0 1px rgba(255, 255, 255, 0.55);
-        backdrop-filter: blur(22px);
-        pointer-events: auto;
-        transform-style: preserve-3d;
-        animation: photo-drift 6.2s ease-in-out infinite;
-      }
-
-      .sara-card::before {
-        position: absolute;
-        inset: -1px;
-        z-index: -1;
-        content: "";
-        border-radius: inherit;
-        background: linear-gradient(140deg, rgba(247, 201, 106, 0.7), rgba(255, 143, 184, 0.38), transparent 70%);
-        filter: blur(18px);
-        opacity: 0.72;
-      }
-
-      @keyframes photo-drift {
-        0%,
-        100% {
-          transform: perspective(900px) rotateY(-8deg) rotateX(3deg) translateY(0);
-        }
-        50% {
-          transform: perspective(900px) rotateY(7deg) rotateX(0deg) translateY(-14px);
-        }
-      }
-
-      .sara-card img {
-        display: block;
-        width: 100%;
-        aspect-ratio: 1;
-        object-fit: cover;
-        border: 1px solid rgba(255, 255, 255, 0.52);
-        border-radius: 0.95rem;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-      }
-
-      .sara-card figcaption {
-        margin: 0;
-        padding: 0.82rem 0.2rem 0.18rem;
-        color: #fff8e7;
-        text-align: center;
-        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
-      }
-
-      .sara-card strong {
-        display: block;
-        color: var(--gold);
-        font-size: 0.82rem;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-      }
-
-      .sara-card span {
-        display: block;
-        margin-top: 0.12rem;
-        font-size: 1.15rem;
-        font-weight: 850;
-      }
-
-      .message-panel {
-        position: fixed;
-        right: clamp(1rem, 4vw, 3.5rem);
-        bottom: clamp(1rem, 4vw, 3.5rem);
-        z-index: 6;
-        width: min(440px, calc(100vw - 2rem));
-        padding: 1.25rem;
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        border-radius: 1.1rem;
-        background: rgba(5, 12, 29, 0.72);
-        box-shadow: 0 24px 86px rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(24px);
-        opacity: 0;
-        transform: translateY(1.1rem) scale(0.97);
-        transition:
-          opacity 260ms ease,
-          transform 260ms ease;
-        pointer-events: none;
-      }
-
-      .message-panel.is-open {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        pointer-events: auto;
-      }
-
-      .message-panel h2 {
-        margin: 0 0 0.48rem;
-        color: var(--gold);
-        font-size: 1.35rem;
-        letter-spacing: 0;
-      }
-
-      .message-panel p {
-        margin: 0;
-        color: rgba(255, 246, 226, 0.84);
-        font-size: 1rem;
-        line-height: 1.65;
-      }
-
-      .close-panel {
-        position: absolute;
-        top: 0.7rem;
-        right: 0.7rem;
-        display: grid;
-        width: 2rem;
-        height: 2rem;
-        padding: 0;
-        place-items: center;
-        color: var(--cream);
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
-        cursor: pointer;
+        width: 100vw;
+        height: 100vh;
       }
 
       .sr-only {
@@ -452,507 +51,629 @@
         white-space: nowrap;
         border: 0;
       }
-
-      @media (max-width: 860px) {
-        .birthday-page {
-          min-height: 100svh;
-          background-position: center;
-        }
-
-        .hero {
-          grid-template-columns: 1fr;
-          align-content: space-between;
-          gap: 1.5rem;
-          min-height: 100svh;
-          padding: 1.35rem;
-        }
-
-        .hero-copy {
-          padding-top: 2.6rem;
-        }
-
-        .wish {
-          max-width: 32rem;
-        }
-
-        .sara-card {
-          justify-self: start;
-          align-self: center;
-          width: min(224px, 58vw);
-          margin: 0 0 1rem 0.2rem;
-          animation-duration: 7.5s;
-        }
-
-        .cake-touch-zone {
-          right: 0.35rem;
-          bottom: 1.6rem;
-          left: auto;
-          width: min(54vw, 230px);
-          height: 33vh;
-          transform: none;
-        }
-
-        .cake-touch-zone span {
-          margin-bottom: 0.7rem;
-          font-size: 0.68rem;
-          letter-spacing: 0.06em;
-        }
-
-        .message-panel {
-          right: 1rem;
-          bottom: 1rem;
-        }
-      }
-
-      @media (max-width: 520px) {
-        .birthday-page {
-          background-position: 48% center;
-        }
-
-        .hero {
-          padding: 1rem;
-        }
-
-        .eyebrow {
-          margin-bottom: 0.9rem;
-          letter-spacing: 0.13em;
-        }
-
-        .eyebrow::before,
-        .eyebrow::after {
-          width: 1.3rem;
-        }
-
-        h1 {
-          font-size: clamp(3rem, 18vw, 5.3rem);
-        }
-
-        .wish {
-          margin: 1.05rem 0 1.3rem;
-          font-size: 1rem;
-          line-height: 1.58;
-        }
-
-        .controls {
-          gap: 0.65rem;
-        }
-
-        .wish-button,
-        .photo-button {
-          width: 100%;
-          min-height: 3rem;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-          scroll-behavior: auto !important;
-          animation-duration: 0.001ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.001ms !important;
-        }
-      }
     </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+        }
+      }
+    </script>
   </head>
   <body>
-    <main class="birthday-page" aria-label="Happy Birthday Sara 3D rooftop card">
-      <canvas id="cake-scene" aria-hidden="true"></canvas>
-      <div
-        class="cake-touch-zone"
-        role="button"
-        tabindex="0"
-        aria-label="Drag to rotate Sara's 3D birthday cake"
-      >
-        <span>Drag cake to spin</span>
-      </div>
-      <div class="sparkle-field" aria-hidden="true"></div>
-
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">Rooftop birthday night</p>
-          <h1>Happy Birthday <span>Sara</span></h1>
-          <p class="wish">
-            Wishing you a year that feels as bright as a skyline, as sweet as the tallest cake,
-            and as unforgettable as this rooftop view.
-          </p>
-          <div class="controls">
-            <button class="wish-button" type="button">Make a wish</button>
-            <button class="photo-button" type="button">Shine the photo</button>
-          </div>
-        </div>
-
-        <figure class="sara-card" aria-label="Photo of Sara">
-          <img src="/assets/img/birthday/sara-photo.jpg" alt="Sara">
-          <figcaption>
-            <strong>Birthday star</strong>
-            <span>Sara</span>
-          </figcaption>
-        </figure>
-      </section>
-
-      <aside class="message-panel" role="dialog" aria-live="polite" aria-label="Birthday wish">
-        <button class="close-panel" type="button">
-          <span aria-hidden="true">×</span>
-          <span class="sr-only">Close birthday wish</span>
-        </button>
-        <h2>For Sara</h2>
-        <p>
-          May every new chapter bring softer mornings, louder laughs, better adventures,
-          and the kind of happiness that stays glowing long after the candles go out.
-        </p>
-      </aside>
-    </main>
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <h1 class="sr-only">happy birthday sara</h1>
 
     <script type="module">
-      import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+      import * as THREE from "three";
+      import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js";
 
-      const canvas = document.querySelector("#cake-scene");
-      const page = document.querySelector(".birthday-page");
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      const canvas = document.querySelector("#scene");
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.08;
 
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-      camera.position.set(0, 1.4, 9);
+      scene.fog = new THREE.FogExp2(0x070d1e, 0.045);
 
-      const group = new THREE.Group();
-      group.position.set(0.2, -1.75, 0);
-      scene.add(group);
+      const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 120);
+      camera.position.set(0.12, 2.35, 7.15);
 
-      const hemi = new THREE.HemisphereLight(0xfff7db, 0x28406b, 1.3);
-      scene.add(hemi);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.target.set(0, 1.22, 0.22);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.055;
+      controls.rotateSpeed = 0.54;
+      controls.zoomSpeed = 0.72;
+      controls.enablePan = false;
+      controls.minDistance = 3.45;
+      controls.maxDistance = 9.8;
+      controls.minPolarAngle = Math.PI * 0.2;
+      controls.maxPolarAngle = Math.PI * 0.59;
 
-      const key = new THREE.PointLight(0xffd27a, 5.5, 18);
-      key.position.set(-2.8, 3.4, 4.5);
-      scene.add(key);
+      const textureLoader = new THREE.TextureLoader();
+      const rooftopTexture = textureLoader.load("/assets/img/birthday/rooftop-empty-vr.png");
+      rooftopTexture.colorSpace = THREE.SRGBColorSpace;
+      const saraTexture = textureLoader.load("/assets/img/birthday/sara-photo.jpg");
+      saraTexture.colorSpace = THREE.SRGBColorSpace;
 
-      const rim = new THREE.PointLight(0xff7aa8, 3.4, 18);
-      rim.position.set(3.2, 2.8, 3.8);
-      scene.add(rim);
+      const materials = {
+        porcelain: new THREE.MeshPhysicalMaterial({
+          color: 0xfff1dd,
+          roughness: 0.32,
+          metalness: 0.02,
+          clearcoat: 0.5,
+          clearcoatRoughness: 0.28,
+        }),
+        blush: new THREE.MeshPhysicalMaterial({
+          color: 0xff9eb8,
+          roughness: 0.38,
+          metalness: 0.02,
+          clearcoat: 0.32,
+          clearcoatRoughness: 0.34,
+        }),
+        deepRose: new THREE.MeshStandardMaterial({
+          color: 0xd84f76,
+          roughness: 0.44,
+          metalness: 0.02,
+        }),
+        paleRose: new THREE.MeshStandardMaterial({
+          color: 0xffc0ce,
+          roughness: 0.48,
+          metalness: 0.01,
+        }),
+        cream: new THREE.MeshStandardMaterial({
+          color: 0xfff7e9,
+          roughness: 0.52,
+          metalness: 0.01,
+        }),
+        gold: new THREE.MeshPhysicalMaterial({
+          color: 0xf9ca69,
+          roughness: 0.18,
+          metalness: 0.9,
+          clearcoat: 0.8,
+          clearcoatRoughness: 0.16,
+        }),
+        darkGold: new THREE.MeshStandardMaterial({
+          color: 0xa36b2a,
+          roughness: 0.28,
+          metalness: 0.82,
+        }),
+        flame: new THREE.MeshBasicMaterial({ color: 0xfff0a6 }),
+        chocolate: new THREE.MeshStandardMaterial({
+          color: 0x6e4334,
+          roughness: 0.36,
+          metalness: 0.04,
+        }),
+        marble: new THREE.MeshPhysicalMaterial({
+          color: 0xbac4d7,
+          roughness: 0.22,
+          metalness: 0.16,
+          clearcoat: 0.65,
+          clearcoatRoughness: 0.22,
+        }),
+        glass: new THREE.MeshPhysicalMaterial({
+          color: 0xffffff,
+          roughness: 0.08,
+          transmission: 0.18,
+          transparent: true,
+          opacity: 0.38,
+          metalness: 0,
+        }),
+      };
 
-      const cakeWhite = new THREE.MeshStandardMaterial({
-        color: 0xfff3dd,
-        roughness: 0.36,
-        metalness: 0.04,
-      });
-      const cakeBlush = new THREE.MeshStandardMaterial({
-        color: 0xff9ebb,
-        roughness: 0.4,
-        metalness: 0.02,
-      });
-      const gold = new THREE.MeshStandardMaterial({
-        color: 0xf7c96a,
-        roughness: 0.22,
-        metalness: 0.85,
-      });
-      const flame = new THREE.MeshBasicMaterial({ color: 0xfff0a6 });
-      const saraPhotoMaterial = new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        side: THREE.DoubleSide,
-      });
-
-      new THREE.TextureLoader().load("/assets/img/birthday/sara-photo.jpg", (texture) => {
-        texture.colorSpace = THREE.SRGBColorSpace;
-        saraPhotoMaterial.map = texture;
-        saraPhotoMaterial.needsUpdate = true;
-      });
-
-      function tier(radius, height, y, material) {
-        const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius * 0.96, height, 96), material);
-        mesh.position.y = y;
+      function add(mesh, parent = scene) {
         mesh.castShadow = true;
         mesh.receiveShadow = true;
-        group.add(mesh);
+        parent.add(mesh);
         return mesh;
       }
 
-      tier(1.55, 0.72, 0, cakeWhite);
-      tier(1.12, 0.7, 0.72, cakeBlush);
-      tier(0.72, 0.62, 1.36, cakeWhite);
-
-      for (let i = 0; i < 3; i += 1) {
-        const band = new THREE.Mesh(new THREE.TorusGeometry([1.55, 1.12, 0.72][i], 0.035, 16, 128), gold);
-        band.position.y = [0.36, 1.07, 1.68][i];
-        band.rotation.x = Math.PI / 2;
-        group.add(band);
+      function makeCylinder(radiusTop, radiusBottom, height, material, segments = 128) {
+        return new THREE.Mesh(new THREE.CylinderGeometry(radiusTop, radiusBottom, height, segments, 3), material);
       }
 
-      for (let i = 0; i < 42; i += 1) {
-        const angle = (i / 42) * Math.PI * 2;
-        const radius = i % 2 === 0 ? 1.68 : 1.36;
-        const pearl = new THREE.Mesh(new THREE.SphereGeometry(0.045, 18, 18), i % 3 === 0 ? cakeBlush : gold);
-        pearl.position.set(Math.cos(angle) * radius, -0.39, Math.sin(angle) * radius);
-        group.add(pearl);
+      function roundedPlate(radius, y, height, material, parent) {
+        const plate = makeCylinder(radius, radius * 1.02, height, material, 160);
+        plate.position.y = y;
+        add(plate, parent);
+        const lip = new THREE.Mesh(new THREE.TorusGeometry(radius * 1.02, height * 0.34, 18, 160), material);
+        lip.position.y = y + height * 0.48;
+        lip.rotation.x = Math.PI / 2;
+        add(lip, parent);
+        return plate;
       }
 
-      for (let i = 0; i < 7; i += 1) {
-        const x = (i - 3) * 0.22;
-        const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.48, 22), cakeWhite);
-        candle.position.set(x, 1.96, 0.05 + Math.abs(i - 3) * 0.03);
-        group.add(candle);
+      function backdrop() {
+        scene.background = new THREE.Color(0x071022);
 
-        const stripe = new THREE.Mesh(new THREE.TorusGeometry(0.038, 0.006, 8, 16), cakeBlush);
-        stripe.position.copy(candle.position);
-        stripe.position.y += 0.08;
-        stripe.rotation.x = Math.PI / 2;
-        group.add(stripe);
+        const bg = new THREE.Mesh(
+          new THREE.CylinderGeometry(15, 15, 10, 160, 1, true),
+          new THREE.MeshBasicMaterial({ map: rooftopTexture, side: THREE.BackSide })
+        );
+        bg.position.set(0, 3.6, 0.6);
+        bg.rotation.y = Math.PI * 1.5;
+        scene.add(bg);
 
-        const light = new THREE.Mesh(new THREE.SphereGeometry(0.055, 18, 18), flame);
-        light.position.set(x, 2.25, candle.position.z);
-        light.scale.y = 1.7;
-        group.add(light);
-      }
+        const skyGlow = new THREE.Mesh(
+          new THREE.SphereGeometry(32, 48, 24),
+          new THREE.MeshBasicMaterial({
+            color: 0x10224f,
+            side: THREE.BackSide,
+            transparent: true,
+            opacity: 0.42,
+          })
+        );
+        skyGlow.position.y = 2.5;
+        scene.add(skyGlow);
 
-      const ediblePhoto = new THREE.Mesh(new THREE.CircleGeometry(0.48, 96), saraPhotoMaterial);
-      ediblePhoto.position.set(0, 1.695, 0.04);
-      ediblePhoto.rotation.x = -Math.PI / 2;
-      group.add(ediblePhoto);
+        const floor = new THREE.Mesh(
+          new THREE.PlaneGeometry(42, 32),
+          materials.marble
+        );
+        floor.rotation.x = -Math.PI / 2;
+        floor.position.set(0, -0.08, 2.2);
+        floor.receiveShadow = true;
+        scene.add(floor);
 
-      const ediblePhotoFrame = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.028, 18, 128), gold);
-      ediblePhotoFrame.position.copy(ediblePhoto.position);
-      ediblePhotoFrame.position.y += 0.006;
-      ediblePhotoFrame.rotation.x = Math.PI / 2;
-      group.add(ediblePhotoFrame);
+        const floorGrid = new THREE.GridHelper(34, 30, 0xefd68a, 0x304363);
+        floorGrid.position.y = -0.071;
+        floorGrid.material.transparent = true;
+        floorGrid.material.opacity = 0.16;
+        scene.add(floorGrid);
 
-      const topper = new THREE.Group();
-      topper.position.set(0, 2.36, -0.1);
-      group.add(topper);
-
-      const topperStick = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.84, 18), gold);
-      topperStick.position.set(0, -0.44, -0.03);
-      topper.add(topperStick);
-
-      const topperBack = new THREE.Mesh(
-        new THREE.CircleGeometry(0.62, 96),
-        new THREE.MeshStandardMaterial({ color: 0xf7c96a, roughness: 0.26, metalness: 0.72, side: THREE.DoubleSide })
-      );
-      topperBack.position.z = -0.016;
-      topper.add(topperBack);
-
-      const topperPhoto = new THREE.Mesh(new THREE.CircleGeometry(0.56, 96), saraPhotoMaterial);
-      topperPhoto.position.z = 0.01;
-      topper.add(topperPhoto);
-
-      const topperFrame = new THREE.Mesh(new THREE.TorusGeometry(0.58, 0.035, 18, 128), gold);
-      topperFrame.position.z = 0.025;
-      topper.add(topperFrame);
-
-      const confetti = [];
-      const colors = [0xf7c96a, 0xff8fb8, 0xffffff, 0x7edcff, 0xff6f7f];
-      for (let i = 0; i < 125; i += 1) {
-        const material = new THREE.MeshBasicMaterial({
-          color: colors[i % colors.length],
-          side: THREE.DoubleSide,
+        const railMaterial = new THREE.MeshStandardMaterial({
+          color: 0xd6c1a2,
+          roughness: 0.32,
+          metalness: 0.14,
         });
-        const piece = new THREE.Mesh(new THREE.PlaneGeometry(0.055, 0.11), material);
-        piece.position.set((Math.random() - 0.5) * 10, Math.random() * 6 - 0.6, (Math.random() - 0.5) * 5);
-        piece.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
-        piece.userData.speed = 0.003 + Math.random() * 0.012;
-        piece.userData.drift = (Math.random() - 0.5) * 0.012;
-        confetti.push(piece);
-        scene.add(piece);
+        const rail = new THREE.Mesh(new THREE.BoxGeometry(22, 0.14, 0.15), railMaterial);
+        rail.position.set(0, 1.16, -4.75);
+        add(rail);
+        for (let i = 0; i < 22; i += 1) {
+          const post = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.055, 1.15, 16), railMaterial);
+          post.position.set(-10.5 + i, 0.5, -4.75);
+          add(post);
+        }
+
+        const loungeLight = new THREE.Mesh(
+          new THREE.TorusGeometry(4.4, 0.01, 8, 160),
+          new THREE.MeshBasicMaterial({ color: 0xffdda0, transparent: true, opacity: 0.48 })
+        );
+        loungeLight.rotation.x = Math.PI / 2;
+        loungeLight.position.set(0, 0.006, 0.58);
+        scene.add(loungeLight);
       }
 
-      const balloons = [];
-      const balloonMaterials = [
-        new THREE.MeshStandardMaterial({ color: 0xf7c96a, roughness: 0.18, metalness: 0.55 }),
-        new THREE.MeshStandardMaterial({ color: 0xff8fb8, roughness: 0.22, metalness: 0.36 }),
-        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.16, metalness: 0.25 }),
-      ];
+      function addLights() {
+        const hemi = new THREE.HemisphereLight(0xf8eacb, 0x17274f, 1.35);
+        scene.add(hemi);
 
-      for (let i = 0; i < 8; i += 1) {
-        const balloon = new THREE.Mesh(new THREE.SphereGeometry(0.22, 32, 32), balloonMaterials[i % balloonMaterials.length]);
-        balloon.position.set((i % 2 === 0 ? -4.3 : 4.3) + (Math.random() - 0.5) * 0.6, 1.5 + Math.random() * 2.7, -0.7 + Math.random());
-        balloon.scale.y = 1.18;
-        balloons.push(balloon);
-        scene.add(balloon);
+        const moon = new THREE.DirectionalLight(0x9ec8ff, 1.4);
+        moon.position.set(-6, 9, -3);
+        moon.castShadow = true;
+        moon.shadow.mapSize.set(2048, 2048);
+        moon.shadow.camera.near = 0.5;
+        moon.shadow.camera.far = 30;
+        moon.shadow.camera.left = -8;
+        moon.shadow.camera.right = 8;
+        moon.shadow.camera.top = 8;
+        moon.shadow.camera.bottom = -8;
+        scene.add(moon);
+
+        const candleGlow = new THREE.PointLight(0xffbd67, 9.5, 16);
+        candleGlow.position.set(0.2, 2.6, 1.7);
+        scene.add(candleGlow);
+
+        const roseGlow = new THREE.PointLight(0xff7fa5, 2.7, 10);
+        roseGlow.position.set(2.4, 1.5, 2.8);
+        scene.add(roseGlow);
+
+        const cardGlow = new THREE.PointLight(0xffd38a, 2.3, 8);
+        cardGlow.position.set(-3.25, 1.65, 1.9);
+        scene.add(cardGlow);
       }
+
+      function createCake() {
+        const cake = new THREE.Group();
+        cake.position.set(0, 0, 0.58);
+        scene.add(cake);
+
+        roundedPlate(2.45, 0.02, 0.2, materials.gold, cake);
+        roundedPlate(2.25, 0.19, 0.16, materials.marble, cake);
+
+        const tiers = [
+          { r: 1.86, h: 0.72, y: 0.64, mat: materials.porcelain },
+          { r: 1.28, h: 0.68, y: 1.32, mat: materials.blush },
+          { r: 0.82, h: 0.64, y: 1.96, mat: materials.porcelain },
+        ];
+
+        tiers.forEach((tier) => {
+          const mesh = makeCylinder(tier.r, tier.r * 1.015, tier.h, tier.mat, 192);
+          mesh.position.y = tier.y;
+          add(mesh, cake);
+          const top = new THREE.Mesh(new THREE.TorusGeometry(tier.r * 0.99, 0.045, 20, 192), materials.cream);
+          top.position.y = tier.y + tier.h * 0.5 + 0.02;
+          top.rotation.x = Math.PI / 2;
+          add(top, cake);
+          const bottom = new THREE.Mesh(new THREE.TorusGeometry(tier.r * 1.01, 0.05, 20, 192), materials.cream);
+          bottom.position.y = tier.y - tier.h * 0.5 + 0.02;
+          bottom.rotation.x = Math.PI / 2;
+          add(bottom, cake);
+        });
+
+        addPearls(cake, 1.93, 0.29, 66, 0.057);
+        addPearls(cake, 1.31, 0.98, 52, 0.048);
+        addPearls(cake, 0.85, 1.67, 38, 0.043);
+        addLattice(cake, 1.32, 1.32, 0.7);
+        addGoldDrips(cake, 0.82, 2.27, 26);
+        addGoldDrips(cake, 1.28, 1.67, 34);
+        addIcingPuffs(cake, 1.88, 0.31, 50, 0.13);
+        addIcingPuffs(cake, 1.3, 1, 42, 0.105);
+        addIcingPuffs(cake, 0.84, 1.68, 32, 0.09);
+
+        const roseSpots = [
+          [1.32, 0.48, 1.18, 0.22, materials.deepRose],
+          [-1.25, 0.53, 1.02, 0.2, materials.paleRose],
+          [0.76, 1.17, 0.96, 0.18, materials.deepRose],
+          [-0.6, 1.84, 0.6, 0.15, materials.paleRose],
+          [0.22, 2.31, 0.14, 0.17, materials.deepRose],
+          [-0.2, 2.32, 0.1, 0.15, materials.paleRose],
+          [0.46, 2.27, 0.08, 0.14, materials.paleRose],
+        ];
+        roseSpots.forEach(([x, y, z, scale, material], index) => {
+          const rose = createRose(scale, material);
+          rose.position.set(x, y, z);
+          rose.rotation.y = -0.35 + index * 0.28;
+          cake.add(rose);
+        });
+
+        addCandles(cake);
+
+        return cake;
+      }
+
+      function addPearls(parent, radius, y, count, size) {
+        const geometry = new THREE.SphereGeometry(size, 18, 18);
+        for (let i = 0; i < count; i += 1) {
+          const angle = (i / count) * Math.PI * 2;
+          const pearl = new THREE.Mesh(geometry, i % 5 === 0 ? materials.gold : materials.cream);
+          pearl.position.set(Math.cos(angle) * radius, y + Math.sin(i * 1.7) * 0.006, Math.sin(angle) * radius);
+          add(pearl, parent);
+        }
+      }
+
+      function addIcingPuffs(parent, radius, y, count, size) {
+        for (let i = 0; i < count; i += 1) {
+          const angle = (i / count) * Math.PI * 2;
+          const puff = new THREE.Mesh(new THREE.SphereGeometry(size, 18, 18), materials.cream);
+          puff.scale.set(1.25, 0.58, 0.92);
+          puff.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
+          puff.rotation.y = -angle;
+          add(puff, parent);
+        }
+      }
+
+      function addGoldDrips(parent, radius, topY, count) {
+        for (let i = 0; i < count; i += 1) {
+          const angle = (i / count) * Math.PI * 2;
+          const length = 0.12 + Math.random() * 0.28;
+          const drop = new THREE.Mesh(new THREE.CapsuleGeometry(0.018 + Math.random() * 0.014, length, 8, 16), materials.gold);
+          drop.position.set(Math.cos(angle) * radius, topY - length * 0.48, Math.sin(angle) * radius);
+          drop.rotation.z = Math.PI;
+          add(drop, parent);
+          const bead = new THREE.Mesh(new THREE.SphereGeometry(0.028, 14, 14), materials.gold);
+          bead.position.set(Math.cos(angle) * radius, topY - length, Math.sin(angle) * radius);
+          add(bead, parent);
+        }
+      }
+
+      function addLattice(parent, radius, centerY, height) {
+        const lineMaterial = new THREE.MeshStandardMaterial({
+          color: 0xf6d27d,
+          roughness: 0.25,
+          metalness: 0.8,
+        });
+
+        for (let dir = -1; dir <= 1; dir += 2) {
+          for (let i = 0; i < 18; i += 1) {
+            const points = [];
+            for (let step = 0; step <= 36; step += 1) {
+              const t = step / 36;
+              const angle = (i / 18) * Math.PI * 2 + dir * (t - 0.5) * 0.82;
+              const y = centerY - height * 0.33 + t * height * 0.66;
+              points.push(new THREE.Vector3(Math.cos(angle) * (radius + 0.018), y, Math.sin(angle) * (radius + 0.018)));
+            }
+            const curve = new THREE.CatmullRomCurve3(points);
+            const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 36, 0.0085, 8, false), lineMaterial);
+            add(tube, parent);
+          }
+        }
+      }
+
+      function createRose(scale, material) {
+        const rose = new THREE.Group();
+        const center = new THREE.Mesh(new THREE.SphereGeometry(scale * 0.24, 18, 18), material);
+        center.scale.y = 0.65;
+        add(center, rose);
+
+        for (let ring = 0; ring < 3; ring += 1) {
+          const petals = 7 + ring * 4;
+          for (let i = 0; i < petals; i += 1) {
+            const angle = (i / petals) * Math.PI * 2 + ring * 0.28;
+            const petal = new THREE.Mesh(new THREE.SphereGeometry(scale * (0.24 + ring * 0.05), 18, 12), material);
+            petal.scale.set(0.5, 0.13, 0.88);
+            petal.position.set(
+              Math.cos(angle) * scale * (0.2 + ring * 0.18),
+              ring * scale * 0.045,
+              Math.sin(angle) * scale * (0.2 + ring * 0.18)
+            );
+            petal.rotation.set(0.55, -angle, 0.18);
+            add(petal, rose);
+          }
+        }
+
+        return rose;
+      }
+
+      function addCandles(parent) {
+        const stripeMaterial = new THREE.MeshStandardMaterial({
+          color: 0xff9ebb,
+          roughness: 0.32,
+          metalness: 0.03,
+        });
+        const candlePositions = [
+          [-0.48, 2.52, 0.13],
+          [-0.25, 2.56, 0.08],
+          [0, 2.58, 0.05],
+          [0.25, 2.56, 0.08],
+          [0.48, 2.52, 0.13],
+          [-0.16, 2.55, -0.2],
+          [0.16, 2.55, -0.2],
+        ];
+
+        candlePositions.forEach(([x, y, z], index) => {
+          const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.038, 0.55, 28), materials.cream);
+          candle.position.set(x, y, z);
+          add(candle, parent);
+
+          for (let stripe = 0; stripe < 3; stripe += 1) {
+            const band = new THREE.Mesh(new THREE.TorusGeometry(0.04, 0.0045, 8, 24), stripeMaterial);
+            band.position.set(x, y - 0.17 + stripe * 0.16, z);
+            band.rotation.x = Math.PI / 2;
+            band.rotation.z = (stripe + index) * 0.4;
+            add(band, parent);
+          }
+
+          const wick = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.085, 8), materials.chocolate);
+          wick.position.set(x, y + 0.315, z);
+          add(wick, parent);
+
+          const flame = new THREE.Mesh(new THREE.SphereGeometry(0.052, 18, 18), materials.flame);
+          flame.position.set(x, y + 0.39, z);
+          flame.scale.set(0.72, 1.7, 0.72);
+          parent.add(flame);
+
+          const glow = new THREE.PointLight(0xffbd67, 0.75, 1.4);
+          glow.position.copy(flame.position);
+          parent.add(glow);
+        });
+      }
+
+      function createTextTexture() {
+        const textCanvas = document.createElement("canvas");
+        textCanvas.width = 1024;
+        textCanvas.height = 512;
+        const ctx = textCanvas.getContext("2d");
+        ctx.clearRect(0, 0, textCanvas.width, textCanvas.height);
+        ctx.fillStyle = "rgba(255, 250, 240, 0.98)";
+        ctx.fillRect(0, 0, textCanvas.width, textCanvas.height);
+
+        const gradient = ctx.createLinearGradient(0, 0, 1024, 512);
+        gradient.addColorStop(0, "#fff6dc");
+        gradient.addColorStop(0.45, "#f7c96a");
+        gradient.addColorStop(1, "#ff8fb8");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, textCanvas.width, 18);
+        ctx.fillRect(0, textCanvas.height - 18, textCanvas.width, 18);
+
+        ctx.fillStyle = "#4c2d20";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = "900 78px Inter, Arial, sans-serif";
+        ctx.fillText("happy birthday", 512, 170);
+        ctx.font = "900 98px Inter, Arial, sans-serif";
+        ctx.fillText("sara", 512, 280);
+
+        ctx.strokeStyle = "rgba(247, 201, 106, 0.72)";
+        ctx.lineWidth = 8;
+        ctx.strokeRect(38, 38, 948, 436);
+
+        const texture = new THREE.CanvasTexture(textCanvas);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        return texture;
+      }
+
+      function createSideTable() {
+        const table = new THREE.Group();
+        table.position.set(-3.35, 0.04, 1.45);
+        table.rotation.y = 0.22;
+        scene.add(table);
+
+        const wood = new THREE.MeshStandardMaterial({
+          color: 0x76513c,
+          roughness: 0.34,
+          metalness: 0.08,
+        });
+        const top = new THREE.Mesh(new THREE.CylinderGeometry(0.86, 0.9, 0.1, 80), wood);
+        top.position.y = 0.7;
+        add(top, table);
+        const base = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.36, 0.08, 48), materials.gold);
+        base.position.y = 0.03;
+        add(base, table);
+        const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.085, 0.7, 32), materials.gold);
+        leg.position.y = 0.35;
+        add(leg, table);
+
+        const card = new THREE.Group();
+        card.position.set(-0.08, 1.28, 0.08);
+        card.rotation.x = -0.08;
+        card.rotation.y = 0.12;
+        table.add(card);
+
+        const cardBack = new THREE.Mesh(
+          new THREE.BoxGeometry(1.45, 1.18, 0.045),
+          new THREE.MeshPhysicalMaterial({
+            color: 0xfff4dd,
+            roughness: 0.28,
+            metalness: 0.02,
+            clearcoat: 0.35,
+          })
+        );
+        add(cardBack, card);
+
+        const textPlane = new THREE.Mesh(
+          new THREE.PlaneGeometry(1.28, 0.64),
+          new THREE.MeshBasicMaterial({ map: createTextTexture(), transparent: true })
+        );
+        textPlane.position.set(0, 0.28, 0.028);
+        card.add(textPlane);
+
+        const photo = new THREE.Mesh(
+          new THREE.PlaneGeometry(0.54, 0.54),
+          new THREE.MeshBasicMaterial({ map: saraTexture })
+        );
+        photo.position.set(0, -0.31, 0.032);
+        card.add(photo);
+
+        const photoFrame = new THREE.Mesh(new THREE.TorusGeometry(0.39, 0.025, 16, 80), materials.gold);
+        photoFrame.scale.y = 0.72;
+        photoFrame.position.set(0, -0.31, 0.038);
+        card.add(photoFrame);
+
+        const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.32, 20), materials.cream);
+        candle.position.set(0.58, 0.93, 0.4);
+        add(candle, table);
+        const flame = new THREE.Mesh(new THREE.SphereGeometry(0.05, 16, 16), materials.flame);
+        flame.scale.y = 1.6;
+        flame.position.set(0.58, 1.13, 0.4);
+        table.add(flame);
+      }
+
+      function addFloatingConfetti() {
+        const confetti = [];
+        const colors = [0xf7c96a, 0xff8fb8, 0xffffff, 0x77dfff, 0xff5f86];
+        for (let i = 0; i < 170; i += 1) {
+          const material = new THREE.MeshBasicMaterial({
+            color: colors[i % colors.length],
+            side: THREE.DoubleSide,
+          });
+          const piece = new THREE.Mesh(new THREE.PlaneGeometry(0.035 + Math.random() * 0.035, 0.1 + Math.random() * 0.08), material);
+          piece.position.set((Math.random() - 0.5) * 12, 1 + Math.random() * 7, -3 + Math.random() * 8);
+          piece.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+          piece.userData.speed = 0.002 + Math.random() * 0.006;
+          piece.userData.spin = 0.01 + Math.random() * 0.025;
+          confetti.push(piece);
+          scene.add(piece);
+        }
+        return confetti;
+      }
+
+      function addBalloons() {
+        const balloons = [];
+        const mats = [
+          new THREE.MeshPhysicalMaterial({ color: 0xf7c96a, roughness: 0.14, metalness: 0.45, clearcoat: 0.8 }),
+          new THREE.MeshPhysicalMaterial({ color: 0xff8fb8, roughness: 0.18, metalness: 0.28, clearcoat: 0.75 }),
+          new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.12, metalness: 0.24, clearcoat: 0.82 }),
+        ];
+        const positions = [
+          [-5.5, 3.2, 0.4],
+          [-5.95, 2.65, 0.6],
+          [-5.25, 2.55, 0.7],
+          [5.4, 3.25, -0.3],
+          [5.82, 2.62, -0.1],
+          [5.1, 2.72, 0.08],
+        ];
+        positions.forEach((position, index) => {
+          const balloon = new THREE.Mesh(new THREE.SphereGeometry(0.26, 36, 36), mats[index % mats.length]);
+          balloon.scale.y = 1.18;
+          balloon.position.fromArray(position);
+          balloons.push(balloon);
+          add(balloon);
+        });
+        return balloons;
+      }
+
+      backdrop();
+      addLights();
+      const cake = createCake();
+      createSideTable();
+      const confetti = addFloatingConfetti();
+      const balloons = addBalloons();
+
+      let idleSpin = true;
+      controls.addEventListener("start", () => {
+        idleSpin = false;
+      });
+      controls.addEventListener("end", () => {
+        window.setTimeout(() => {
+          idleSpin = true;
+        }, 1200);
+      });
 
       function resize() {
-        const width = page.clientWidth;
-        const height = page.clientHeight;
+        const width = window.innerWidth;
+        const height = window.innerHeight;
         renderer.setSize(width, height, false);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
 
-        const mobile = width < 700;
-        group.scale.setScalar(mobile ? 0.66 : 0.9);
-        group.position.set(mobile ? 0.82 : 0.72, mobile ? -2.05 : -2.15, 0);
+        if (width < 720) {
+          camera.position.set(0.08, 2.35, 7.9);
+          controls.target.set(0, 1.34, 0.42);
+        } else {
+          camera.position.set(0.12, 2.35, 7.15);
+          controls.target.set(0, 1.22, 0.22);
+        }
+        controls.update();
       }
 
-      resize();
       window.addEventListener("resize", resize);
-
-      let burstUntil = 0;
-      const cakeTouchZone = document.querySelector(".cake-touch-zone");
-      const dragState = {
-        isDragging: false,
-        lastX: 0,
-        lastY: 0,
-        targetX: 0.04,
-        targetY: 0.22,
-        currentX: 0.04,
-        currentY: 0.22,
-        targetZoom: 9,
-      };
-
-      function clamp(value, min, max) {
-        return Math.min(max, Math.max(min, value));
-      }
-
-      function updateCakeFromDrag(event) {
-        const dx = event.clientX - dragState.lastX;
-        const dy = event.clientY - dragState.lastY;
-        dragState.lastX = event.clientX;
-        dragState.lastY = event.clientY;
-        dragState.targetY += dx * 0.012;
-        dragState.targetX = clamp(dragState.targetX + dy * 0.006, -0.38, 0.42);
-      }
-
-      cakeTouchZone.addEventListener("pointerdown", (event) => {
-        event.preventDefault();
-        dragState.isDragging = true;
-        dragState.lastX = event.clientX;
-        dragState.lastY = event.clientY;
-        cakeTouchZone.classList.add("is-dragging");
-        cakeTouchZone.setPointerCapture(event.pointerId);
-      });
-
-      cakeTouchZone.addEventListener("pointermove", (event) => {
-        if (!dragState.isDragging) {
-          return;
-        }
-        event.preventDefault();
-        updateCakeFromDrag(event);
-      });
-
-      function endDrag(event) {
-        dragState.isDragging = false;
-        cakeTouchZone.classList.remove("is-dragging");
-        if (event && cakeTouchZone.hasPointerCapture(event.pointerId)) {
-          cakeTouchZone.releasePointerCapture(event.pointerId);
-        }
-      }
-
-      cakeTouchZone.addEventListener("pointerup", endDrag);
-      cakeTouchZone.addEventListener("pointercancel", endDrag);
-      cakeTouchZone.addEventListener("lostpointercapture", () => {
-        dragState.isDragging = false;
-        cakeTouchZone.classList.remove("is-dragging");
-      });
-
-      cakeTouchZone.addEventListener(
-        "wheel",
-        (event) => {
-          event.preventDefault();
-          dragState.targetZoom = clamp(dragState.targetZoom + event.deltaY * 0.004, 7.2, 10.6);
-        },
-        { passive: false }
-      );
-
-      cakeTouchZone.addEventListener("keydown", (event) => {
-        const keyMap = {
-          ArrowLeft: () => {
-            dragState.targetY -= 0.28;
-          },
-          ArrowRight: () => {
-            dragState.targetY += 0.28;
-          },
-          ArrowUp: () => {
-            dragState.targetX = clamp(dragState.targetX - 0.12, -0.38, 0.42);
-          },
-          ArrowDown: () => {
-            dragState.targetX = clamp(dragState.targetX + 0.12, -0.38, 0.42);
-          },
-        };
-
-        if (keyMap[event.key]) {
-          event.preventDefault();
-          keyMap[event.key]();
-        }
-      });
+      resize();
 
       function animate(now) {
         const time = now * 0.001;
-        if (!dragState.isDragging) {
-          dragState.targetY += 0.0014;
+        if (idleSpin) {
+          cake.rotation.y += 0.0022;
         }
 
-        dragState.currentY += (dragState.targetY - dragState.currentY) * 0.1;
-        dragState.currentX += (dragState.targetX - dragState.currentX) * 0.1;
-        camera.position.z += (dragState.targetZoom - camera.position.z) * 0.08;
-        group.rotation.y = dragState.currentY;
-        group.rotation.x = dragState.currentX + Math.sin(time * 0.31) * 0.018;
-
         confetti.forEach((piece, index) => {
-          piece.position.y -= burstUntil > now ? piece.userData.speed * -5 : piece.userData.speed;
-          piece.position.x += piece.userData.drift;
-          piece.rotation.x += 0.02 + index * 0.00003;
-          piece.rotation.y += 0.026;
-
-          if (piece.position.y < -2.7 || piece.position.y > 5.6) {
-            piece.position.y = 4.6 + Math.random() * 1.8;
-            piece.position.x = (Math.random() - 0.5) * 10;
+          piece.position.y -= piece.userData.speed;
+          piece.rotation.x += piece.userData.spin;
+          piece.rotation.y += piece.userData.spin * 0.7;
+          piece.position.x += Math.sin(time + index) * 0.0015;
+          if (piece.position.y < -0.4) {
+            piece.position.y = 7.2 + Math.random() * 1.2;
+            piece.position.x = (Math.random() - 0.5) * 12;
+            piece.position.z = -3 + Math.random() * 8;
           }
         });
 
         balloons.forEach((balloon, index) => {
           balloon.position.y += Math.sin(time * 1.2 + index) * 0.0018;
-          balloon.rotation.z = Math.sin(time * 0.8 + index) * 0.08;
+          balloon.rotation.z = Math.sin(time * 0.8 + index) * 0.035;
         });
 
+        controls.update();
         renderer.render(scene, camera);
         requestAnimationFrame(animate);
       }
 
       requestAnimationFrame(animate);
-
-      const field = document.querySelector(".sparkle-field");
-      for (let i = 0; i < 42; i += 1) {
-        const sparkle = document.createElement("span");
-        sparkle.className = "sparkle";
-        sparkle.style.left = `${Math.random() * 100}%`;
-        sparkle.style.bottom = `${-10 - Math.random() * 45}%`;
-        sparkle.style.setProperty("--drift", `${(Math.random() - 0.5) * 34}vw`);
-        sparkle.style.setProperty("--duration", `${8 + Math.random() * 9}s`);
-        sparkle.style.animationDelay = `${Math.random() * -14}s`;
-        field.appendChild(sparkle);
-      }
-
-      const panel = document.querySelector(".message-panel");
-      const wishButton = document.querySelector(".wish-button");
-      const photoButton = document.querySelector(".photo-button");
-      const photo = document.querySelector(".sara-card");
-      const closeButton = document.querySelector(".close-panel");
-
-      wishButton.addEventListener("click", () => {
-        panel.classList.add("is-open");
-        burstUntil = performance.now() + 1200;
-      });
-
-      photoButton.addEventListener("click", () => {
-        photo.animate(
-          [
-            { filter: "brightness(1)", transform: getComputedStyle(photo).transform },
-            { filter: "brightness(1.36) saturate(1.2)", transform: "perspective(900px) rotateY(0deg) rotateX(0deg) translateY(-22px) scale(1.04)" },
-            { filter: "brightness(1)", transform: getComputedStyle(photo).transform },
-          ],
-          { duration: 900, easing: "cubic-bezier(.2,.8,.2,1)" }
-        );
-      });
-
-      closeButton.addEventListener("click", () => {
-        panel.classList.remove("is-open");
-      });
-
-      window.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-          panel.classList.remove("is-open");
-        }
-      });
     </script>
   </body>
 </html>
