@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Happy Birthday Sara</title>
+    <meta
+      name="description"
+      content="A cinematic rooftop birthday card for Sara with a 3D cake, skyline view, and birthday wishes."
+    >
+    <meta property="og:title" content="Happy Birthday Sara">
+    <meta property="og:description" content="A rooftop birthday celebration made for Sara.">
+    <meta property="og:image" content="https://sarasix.github.io/assets/img/birthday/sara-rooftop-cake.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="/assets/img/birthday/sara-photo.jpg">
+    <style>
+      :root {
+        color-scheme: dark;
+        --gold: #f7c96a;
+        --rose: #ff8fb8;
+        --cream: #fff4dd;
+        --ink: #08101f;
+        --night: #0b1d3a;
+        --glass: rgba(8, 16, 31, 0.34);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        overflow-x: hidden;
+        color: var(--cream);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: var(--ink);
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .birthday-page {
+        position: relative;
+        min-height: 100svh;
+        isolation: isolate;
+        overflow: hidden;
+        background:
+          linear-gradient(90deg, rgba(4, 9, 22, 0.75), rgba(4, 9, 22, 0.18) 46%, rgba(4, 9, 22, 0.6)),
+          linear-gradient(180deg, rgba(5, 12, 29, 0.22), rgba(5, 12, 29, 0.82)),
+          url("/assets/img/birthday/sara-rooftop-cake.png") center / cover no-repeat;
+      }
+
+      .birthday-page::before {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        content: "";
+        background:
+          radial-gradient(circle at 25% 22%, rgba(255, 190, 101, 0.32), transparent 22rem),
+          radial-gradient(circle at 83% 16%, rgba(255, 143, 184, 0.24), transparent 20rem),
+          linear-gradient(180deg, transparent 0, rgba(5, 12, 29, 0.72) 82%);
+        mix-blend-mode: screen;
+      }
+
+      .birthday-page::after {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        content: "";
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        background-size: 84px 84px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2), transparent 70%);
+      }
+
+      #cake-scene {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .sparkle-field {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .sparkle {
+        position: absolute;
+        width: 0.42rem;
+        height: 0.42rem;
+        border-radius: 999px;
+        background: var(--gold);
+        box-shadow: 0 0 16px rgba(247, 201, 106, 0.88);
+        animation: float-sparkle var(--duration) linear infinite;
+        opacity: 0;
+      }
+
+      @keyframes float-sparkle {
+        0% {
+          transform: translate3d(0, 12vh, 0) scale(0.6) rotate(0deg);
+          opacity: 0;
+        }
+        16% {
+          opacity: 0.85;
+        }
+        78% {
+          opacity: 0.95;
+        }
+        100% {
+          transform: translate3d(var(--drift), -112vh, 0) scale(1.1) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .hero {
+        position: relative;
+        z-index: 3;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 300px;
+        align-items: center;
+        min-height: 100svh;
+        gap: clamp(1.5rem, 4vw, 4rem);
+        padding: clamp(1.25rem, 4vw, 4rem);
+      }
+
+      .hero-copy {
+        width: min(760px, 100%);
+        padding-top: clamp(1rem, 5vh, 4rem);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        margin: 0 0 1.2rem;
+        color: #ffe3a5;
+        font-size: clamp(0.78rem, 1vw, 0.95rem);
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        text-shadow: 0 0 28px rgba(247, 201, 106, 0.5);
+      }
+
+      .eyebrow::before,
+      .eyebrow::after {
+        display: block;
+        width: 2.2rem;
+        height: 1px;
+        content: "";
+        background: linear-gradient(90deg, transparent, var(--gold));
+      }
+
+      .eyebrow::after {
+        background: linear-gradient(90deg, var(--gold), transparent);
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 0;
+        color: #fff9ed;
+        font-size: clamp(3.2rem, 11vw, 9.6rem);
+        font-weight: 950;
+        line-height: 0.86;
+        letter-spacing: 0;
+        text-wrap: balance;
+        text-shadow:
+          0 0 22px rgba(255, 255, 255, 0.16),
+          0 0 52px rgba(247, 201, 106, 0.38),
+          0 10px 42px rgba(0, 0, 0, 0.58);
+      }
+
+      h1 span {
+        display: block;
+        color: transparent;
+        background: linear-gradient(100deg, #fff5d7 0%, var(--gold) 32%, var(--rose) 64%, #ffffff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        filter: drop-shadow(0 0 28px rgba(255, 143, 184, 0.34));
+      }
+
+      .wish {
+        max-width: 620px;
+        margin: 1.55rem 0 2rem;
+        color: rgba(255, 246, 226, 0.86);
+        font-size: clamp(1.02rem, 1.55vw, 1.36rem);
+        line-height: 1.7;
+        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.58);
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        align-items: center;
+      }
+
+      .wish-button,
+      .photo-button {
+        min-height: 3.15rem;
+        border: 1px solid rgba(255, 255, 255, 0.34);
+        border-radius: 999px;
+        cursor: pointer;
+        backdrop-filter: blur(18px);
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .wish-button {
+        padding: 0 1.4rem;
+        color: #21140a;
+        font-weight: 900;
+        background: linear-gradient(135deg, #fff3c0, var(--gold) 55%, #ffaac6);
+        box-shadow:
+          0 16px 48px rgba(247, 201, 106, 0.32),
+          inset 0 1px rgba(255, 255, 255, 0.6);
+      }
+
+      .photo-button {
+        padding: 0 1.2rem;
+        color: var(--cream);
+        font-weight: 750;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .wish-button:hover,
+      .photo-button:hover,
+      .wish-button:focus-visible,
+      .photo-button:focus-visible {
+        border-color: rgba(255, 255, 255, 0.74);
+        box-shadow:
+          0 20px 60px rgba(247, 201, 106, 0.36),
+          0 0 0 5px rgba(255, 255, 255, 0.12);
+        outline: 0;
+        transform: translateY(-2px);
+      }
+
+      .sara-card {
+        position: relative;
+        align-self: end;
+        width: min(300px, 88vw);
+        margin: 0 auto clamp(1rem, 8vh, 5rem);
+        padding: 0.72rem;
+        border: 1px solid rgba(255, 255, 255, 0.38);
+        border-radius: 1.35rem;
+        background:
+          linear-gradient(160deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08)),
+          rgba(255, 255, 255, 0.1);
+        box-shadow:
+          0 24px 88px rgba(0, 0, 0, 0.46),
+          inset 0 1px rgba(255, 255, 255, 0.55);
+        backdrop-filter: blur(22px);
+        transform-style: preserve-3d;
+        animation: photo-drift 6.2s ease-in-out infinite;
+      }
+
+      .sara-card::before {
+        position: absolute;
+        inset: -1px;
+        z-index: -1;
+        content: "";
+        border-radius: inherit;
+        background: linear-gradient(140deg, rgba(247, 201, 106, 0.7), rgba(255, 143, 184, 0.38), transparent 70%);
+        filter: blur(18px);
+        opacity: 0.72;
+      }
+
+      @keyframes photo-drift {
+        0%,
+        100% {
+          transform: perspective(900px) rotateY(-8deg) rotateX(3deg) translateY(0);
+        }
+        50% {
+          transform: perspective(900px) rotateY(7deg) rotateX(0deg) translateY(-14px);
+        }
+      }
+
+      .sara-card img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border: 1px solid rgba(255, 255, 255, 0.52);
+        border-radius: 0.95rem;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+      }
+
+      .sara-card figcaption {
+        margin: 0;
+        padding: 0.82rem 0.2rem 0.18rem;
+        color: #fff8e7;
+        text-align: center;
+        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+      }
+
+      .sara-card strong {
+        display: block;
+        color: var(--gold);
+        font-size: 0.82rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .sara-card span {
+        display: block;
+        margin-top: 0.12rem;
+        font-size: 1.15rem;
+        font-weight: 850;
+      }
+
+      .message-panel {
+        position: fixed;
+        right: clamp(1rem, 4vw, 3.5rem);
+        bottom: clamp(1rem, 4vw, 3.5rem);
+        z-index: 6;
+        width: min(440px, calc(100vw - 2rem));
+        padding: 1.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 1.1rem;
+        background: rgba(5, 12, 29, 0.72);
+        box-shadow: 0 24px 86px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(24px);
+        opacity: 0;
+        transform: translateY(1.1rem) scale(0.97);
+        transition:
+          opacity 260ms ease,
+          transform 260ms ease;
+        pointer-events: none;
+      }
+
+      .message-panel.is-open {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+
+      .message-panel h2 {
+        margin: 0 0 0.48rem;
+        color: var(--gold);
+        font-size: 1.35rem;
+        letter-spacing: 0;
+      }
+
+      .message-panel p {
+        margin: 0;
+        color: rgba(255, 246, 226, 0.84);
+        font-size: 1rem;
+        line-height: 1.65;
+      }
+
+      .close-panel {
+        position: absolute;
+        top: 0.7rem;
+        right: 0.7rem;
+        display: grid;
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+        place-items: center;
+        color: var(--cream);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        cursor: pointer;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (max-width: 860px) {
+        .birthday-page {
+          min-height: 100svh;
+          background-position: center;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+          align-content: space-between;
+          gap: 1.5rem;
+          min-height: 100svh;
+          padding: 1.35rem;
+        }
+
+        .hero-copy {
+          padding-top: 2.6rem;
+        }
+
+        .wish {
+          max-width: 32rem;
+        }
+
+        .sara-card {
+          justify-self: center;
+          align-self: center;
+          width: min(250px, 72vw);
+          margin: 0 0 1rem;
+          animation-duration: 7.5s;
+        }
+
+        .message-panel {
+          right: 1rem;
+          bottom: 1rem;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .birthday-page {
+          background-position: 48% center;
+        }
+
+        .hero {
+          padding: 1rem;
+        }
+
+        .eyebrow {
+          margin-bottom: 0.9rem;
+          letter-spacing: 0.13em;
+        }
+
+        .eyebrow::before,
+        .eyebrow::after {
+          width: 1.3rem;
+        }
+
+        h1 {
+          font-size: clamp(3rem, 18vw, 5.3rem);
+        }
+
+        .wish {
+          margin: 1.05rem 0 1.3rem;
+          font-size: 1rem;
+          line-height: 1.58;
+        }
+
+        .controls {
+          gap: 0.65rem;
+        }
+
+        .wish-button,
+        .photo-button {
+          width: 100%;
+          min-height: 3rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="birthday-page" aria-label="Happy Birthday Sara 3D rooftop card">
+      <canvas id="cake-scene" aria-hidden="true"></canvas>
+      <div class="sparkle-field" aria-hidden="true"></div>
+
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Rooftop birthday night</p>
+          <h1>Happy Birthday <span>Sara</span></h1>
+          <p class="wish">
+            Wishing you a year that feels as bright as a skyline, as sweet as the tallest cake,
+            and as unforgettable as this rooftop view.
+          </p>
+          <div class="controls">
+            <button class="wish-button" type="button">Make a wish</button>
+            <button class="photo-button" type="button">Shine the photo</button>
+          </div>
+        </div>
+
+        <figure class="sara-card" aria-label="Photo of Sara">
+          <img src="/assets/img/birthday/sara-photo.jpg" alt="Sara">
+          <figcaption>
+            <strong>Birthday star</strong>
+            <span>Sara</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <aside class="message-panel" role="dialog" aria-live="polite" aria-label="Birthday wish">
+        <button class="close-panel" type="button">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Close birthday wish</span>
+        </button>
+        <h2>For Sara</h2>
+        <p>
+          May every new chapter bring softer mornings, louder laughs, better adventures,
+          and the kind of happiness that stays glowing long after the candles go out.
+        </p>
+      </aside>
+    </main>
+
+    <script type="module">
+      import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+
+      const canvas = document.querySelector("#cake-scene");
+      const page = document.querySelector(".birthday-page");
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+      camera.position.set(0, 1.4, 9);
+
+      const group = new THREE.Group();
+      group.position.set(0.2, -1.75, 0);
+      scene.add(group);
+
+      const hemi = new THREE.HemisphereLight(0xfff7db, 0x28406b, 1.3);
+      scene.add(hemi);
+
+      const key = new THREE.PointLight(0xffd27a, 5.5, 18);
+      key.position.set(-2.8, 3.4, 4.5);
+      scene.add(key);
+
+      const rim = new THREE.PointLight(0xff7aa8, 3.4, 18);
+      rim.position.set(3.2, 2.8, 3.8);
+      scene.add(rim);
+
+      const cakeWhite = new THREE.MeshStandardMaterial({
+        color: 0xfff3dd,
+        roughness: 0.36,
+        metalness: 0.04,
+      });
+      const cakeBlush = new THREE.MeshStandardMaterial({
+        color: 0xff9ebb,
+        roughness: 0.4,
+        metalness: 0.02,
+      });
+      const gold = new THREE.MeshStandardMaterial({
+        color: 0xf7c96a,
+        roughness: 0.22,
+        metalness: 0.85,
+      });
+      const flame = new THREE.MeshBasicMaterial({ color: 0xfff0a6 });
+
+      function tier(radius, height, y, material) {
+        const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius * 0.96, height, 96), material);
+        mesh.position.y = y;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        group.add(mesh);
+        return mesh;
+      }
+
+      tier(1.55, 0.72, 0, cakeWhite);
+      tier(1.12, 0.7, 0.72, cakeBlush);
+      tier(0.72, 0.62, 1.36, cakeWhite);
+
+      for (let i = 0; i < 3; i += 1) {
+        const band = new THREE.Mesh(new THREE.TorusGeometry([1.55, 1.12, 0.72][i], 0.035, 16, 128), gold);
+        band.position.y = [0.36, 1.07, 1.68][i];
+        band.rotation.x = Math.PI / 2;
+        group.add(band);
+      }
+
+      for (let i = 0; i < 42; i += 1) {
+        const angle = (i / 42) * Math.PI * 2;
+        const radius = i % 2 === 0 ? 1.68 : 1.36;
+        const pearl = new THREE.Mesh(new THREE.SphereGeometry(0.045, 18, 18), i % 3 === 0 ? cakeBlush : gold);
+        pearl.position.set(Math.cos(angle) * radius, -0.39, Math.sin(angle) * radius);
+        group.add(pearl);
+      }
+
+      for (let i = 0; i < 7; i += 1) {
+        const x = (i - 3) * 0.22;
+        const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.48, 22), cakeWhite);
+        candle.position.set(x, 1.96, 0.05 + Math.abs(i - 3) * 0.03);
+        group.add(candle);
+
+        const stripe = new THREE.Mesh(new THREE.TorusGeometry(0.038, 0.006, 8, 16), cakeBlush);
+        stripe.position.copy(candle.position);
+        stripe.position.y += 0.08;
+        stripe.rotation.x = Math.PI / 2;
+        group.add(stripe);
+
+        const light = new THREE.Mesh(new THREE.SphereGeometry(0.055, 18, 18), flame);
+        light.position.set(x, 2.25, candle.position.z);
+        light.scale.y = 1.7;
+        group.add(light);
+      }
+
+      const confetti = [];
+      const colors = [0xf7c96a, 0xff8fb8, 0xffffff, 0x7edcff, 0xff6f7f];
+      for (let i = 0; i < 125; i += 1) {
+        const material = new THREE.MeshBasicMaterial({
+          color: colors[i % colors.length],
+          side: THREE.DoubleSide,
+        });
+        const piece = new THREE.Mesh(new THREE.PlaneGeometry(0.055, 0.11), material);
+        piece.position.set((Math.random() - 0.5) * 10, Math.random() * 6 - 0.6, (Math.random() - 0.5) * 5);
+        piece.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        piece.userData.speed = 0.003 + Math.random() * 0.012;
+        piece.userData.drift = (Math.random() - 0.5) * 0.012;
+        confetti.push(piece);
+        scene.add(piece);
+      }
+
+      const balloons = [];
+      const balloonMaterials = [
+        new THREE.MeshStandardMaterial({ color: 0xf7c96a, roughness: 0.18, metalness: 0.55 }),
+        new THREE.MeshStandardMaterial({ color: 0xff8fb8, roughness: 0.22, metalness: 0.36 }),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.16, metalness: 0.25 }),
+      ];
+
+      for (let i = 0; i < 8; i += 1) {
+        const balloon = new THREE.Mesh(new THREE.SphereGeometry(0.22, 32, 32), balloonMaterials[i % balloonMaterials.length]);
+        balloon.position.set((i % 2 === 0 ? -4.3 : 4.3) + (Math.random() - 0.5) * 0.6, 1.5 + Math.random() * 2.7, -0.7 + Math.random());
+        balloon.scale.y = 1.18;
+        balloons.push(balloon);
+        scene.add(balloon);
+      }
+
+      function resize() {
+        const width = page.clientWidth;
+        const height = page.clientHeight;
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+
+        const mobile = width < 700;
+        group.scale.setScalar(mobile ? 0.68 : 0.88);
+        group.position.set(mobile ? 1.45 : 0.85, mobile ? -2.1 : -2.05, 0);
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+
+      let burstUntil = 0;
+      function animate(now) {
+        const time = now * 0.001;
+        group.rotation.y = Math.sin(time * 0.45) * 0.18;
+        group.rotation.x = Math.sin(time * 0.31) * 0.035;
+
+        confetti.forEach((piece, index) => {
+          piece.position.y -= burstUntil > now ? piece.userData.speed * -5 : piece.userData.speed;
+          piece.position.x += piece.userData.drift;
+          piece.rotation.x += 0.02 + index * 0.00003;
+          piece.rotation.y += 0.026;
+
+          if (piece.position.y < -2.7 || piece.position.y > 5.6) {
+            piece.position.y = 4.6 + Math.random() * 1.8;
+            piece.position.x = (Math.random() - 0.5) * 10;
+          }
+        });
+
+        balloons.forEach((balloon, index) => {
+          balloon.position.y += Math.sin(time * 1.2 + index) * 0.0018;
+          balloon.rotation.z = Math.sin(time * 0.8 + index) * 0.08;
+        });
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+
+      const field = document.querySelector(".sparkle-field");
+      for (let i = 0; i < 42; i += 1) {
+        const sparkle = document.createElement("span");
+        sparkle.className = "sparkle";
+        sparkle.style.left = `${Math.random() * 100}%`;
+        sparkle.style.bottom = `${-10 - Math.random() * 45}%`;
+        sparkle.style.setProperty("--drift", `${(Math.random() - 0.5) * 34}vw`);
+        sparkle.style.setProperty("--duration", `${8 + Math.random() * 9}s`);
+        sparkle.style.animationDelay = `${Math.random() * -14}s`;
+        field.appendChild(sparkle);
+      }
+
+      const panel = document.querySelector(".message-panel");
+      const wishButton = document.querySelector(".wish-button");
+      const photoButton = document.querySelector(".photo-button");
+      const photo = document.querySelector(".sara-card");
+      const closeButton = document.querySelector(".close-panel");
+
+      wishButton.addEventListener("click", () => {
+        panel.classList.add("is-open");
+        burstUntil = performance.now() + 1200;
+      });
+
+      photoButton.addEventListener("click", () => {
+        photo.animate(
+          [
+            { filter: "brightness(1)", transform: getComputedStyle(photo).transform },
+            { filter: "brightness(1.36) saturate(1.2)", transform: "perspective(900px) rotateY(0deg) rotateX(0deg) translateY(-22px) scale(1.04)" },
+            { filter: "brightness(1)", transform: getComputedStyle(photo).transform },
+          ],
+          { duration: 900, easing: "cubic-bezier(.2,.8,.2,1)" }
+        );
+      });
+
+      closeButton.addEventListener("click", () => {
+        panel.classList.remove("is-open");
+      });
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          panel.classList.remove("is-open");
+        }
+      });
+    </script>
+  </body>
+</html>
