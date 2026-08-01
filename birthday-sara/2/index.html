@@ -64,8 +64,8 @@
 
       .vignette {
         background:
-          radial-gradient(circle at 50% 48%, transparent 48%, rgba(1, 4, 13, 0.38) 78%, rgba(1, 3, 10, 0.8) 100%),
-          linear-gradient(180deg, rgba(2, 6, 20, 0.14), transparent 34%, rgba(2, 4, 12, 0.28));
+          radial-gradient(circle at 50% 48%, transparent 52%, rgba(1, 4, 13, 0.2) 80%, rgba(1, 3, 10, 0.58) 100%),
+          linear-gradient(180deg, rgba(2, 6, 20, 0.06), transparent 36%, rgba(2, 4, 12, 0.14));
       }
 
       .film-grain {
@@ -317,7 +317,7 @@
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 0.96;
+      renderer.toneMappingExposure = 1.16;
 
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0x01040d);
@@ -892,7 +892,6 @@
         });
 
         createCandles(cake);
-        createTopper(cake);
         return cake;
       }
 
@@ -947,21 +946,6 @@
         const texture = new THREE.CanvasTexture(c);
         texture.colorSpace = THREE.SRGBColorSpace;
         return texture;
-      }
-
-      function createTopper(parent) {
-        const topperTexture = makeTextTexture([
-          { text: "SARA", y: 220, font: "700 132px Georgia", color: "#6f2341" },
-          { text: "✦", y: 350, font: "74px Georgia", color: "#c99542" },
-        ]);
-        const topper = new THREE.Mesh(new THREE.PlaneGeometry(1.18, 0.62), new THREE.MeshBasicMaterial({ map: topperTexture, transparent: true }));
-        topper.position.set(0, 3.44, 0);
-        parent.add(topper);
-        [-0.44, 0.44].forEach((x) => {
-          const post = cylinder(0.012, 0.012, 0.64, material.gold, 8);
-          post.position.set(x, 3.09, 0);
-          add(post, parent);
-        });
       }
 
       function createGreetingCard() {
@@ -1109,8 +1093,9 @@
       }
 
       function addLights() {
-        scene.add(new THREE.HemisphereLight(0xbcd7ff, 0x120916, 1.2));
-        const key = new THREE.SpotLight(0xffd7a0, 130, 28, Math.PI * 0.23, 0.52, 1.4);
+        scene.add(new THREE.AmbientLight(0x7894c3, 0.48));
+        scene.add(new THREE.HemisphereLight(0xd7e5ff, 0x24111d, 1.68));
+        const key = new THREE.SpotLight(0xffdfb3, 168, 30, Math.PI * 0.25, 0.58, 1.35);
         key.position.set(-2.5, 10, 7.5);
         key.target.position.set(0, 1.5, 0);
         key.castShadow = true;
