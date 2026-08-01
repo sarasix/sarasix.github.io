@@ -682,7 +682,7 @@
         scene.add(stars);
 
         const moonGlow = new THREE.Sprite(
-          new THREE.SpriteMaterial({ map: radialTexture("#fff7d5", "rgba(147,181,255,.35)"), transparent: true, depthWrite: false })
+          new THREE.SpriteMaterial({ map: radialTexture("#fff7d5", "rgba(147,181,255,0)"), transparent: true, depthWrite: false })
         );
         moonGlow.position.set(12, 15, -28);
         moonGlow.scale.set(7, 7, 1);
@@ -797,6 +797,7 @@
         createOneWorldTower();
         createEmpireTower();
         createEiffelTower();
+        createBrooklynBridge();
       }
 
       function createOneWorldTower() {
@@ -898,6 +899,99 @@
         const beacon = cylinder(0.02, 0.06, 1.2, material.paleGold, 10);
         beacon.position.y = 9;
         add(beacon, tower, false);
+      }
+
+      function createBrooklynBridge() {
+        const bridge = new THREE.Group();
+        bridge.position.set(7.2, 0.22, -15.8);
+        bridge.rotation.y = -0.08;
+        scene.add(bridge);
+
+        const stone = new THREE.MeshStandardMaterial({
+          color: 0x817668,
+          roughness: 0.58,
+          metalness: 0.12,
+          emissive: 0x33210f,
+          emissiveIntensity: 0.22,
+        });
+        const steel = new THREE.MeshStandardMaterial({
+          color: 0xb78b48,
+          roughness: 0.34,
+          metalness: 0.82,
+          emissive: 0x3f2408,
+          emissiveIntensity: 0.24,
+        });
+        const bridgeLight = new THREE.MeshBasicMaterial({ color: 0xffd78c });
+        const deckY = 2.05;
+        const towerX = 3.05;
+        const halfSpan = 6.1;
+
+        const deck = new THREE.Mesh(new THREE.BoxGeometry(halfSpan * 2, 0.18, 1.42), material.midnightMetal);
+        deck.position.y = deckY;
+        add(deck, bridge, false);
+        [-0.7, 0.7].forEach((z) => {
+          const edge = new THREE.Mesh(new THREE.BoxGeometry(halfSpan * 2, 0.055, 0.055), steel);
+          edge.position.set(0, deckY + 0.16, z);
+          add(edge, bridge, false);
+        });
+
+        [-towerX, towerX].forEach((x) => {
+          [-0.48, 0.48].forEach((z) => {
+            const pylon = new THREE.Mesh(new THREE.BoxGeometry(0.46, 4.35, 0.5), stone);
+            pylon.position.set(x, 4.02, z);
+            add(pylon, bridge, false);
+            const cap = new THREE.Mesh(new THREE.ConeGeometry(0.34, 0.58, 4), stone);
+            cap.position.set(x, 6.48, z);
+            cap.rotation.y = Math.PI / 4;
+            add(cap, bridge, false);
+          });
+          [4.75, 5.85].forEach((y, index) => {
+            const beam = new THREE.Mesh(new THREE.BoxGeometry(0.58, index ? 0.2 : 0.28, 1.52), stone);
+            beam.position.set(x, y, 0);
+            add(beam, bridge, false);
+          });
+          const towerGlow = new THREE.PointLight(0xffba55, 1.25, 7);
+          towerGlow.position.set(x, 5.45, 0.15);
+          bridge.add(towerGlow);
+        });
+
+        const cablePoints = [
+          new THREE.Vector3(-halfSpan, deckY + 0.55, 0),
+          new THREE.Vector3(-towerX, 6.25, 0),
+          new THREE.Vector3(0, 3.15, 0),
+          new THREE.Vector3(towerX, 6.25, 0),
+          new THREE.Vector3(halfSpan, deckY + 0.55, 0),
+        ];
+        [-0.77, 0.77].forEach((z) => {
+          const points = cablePoints.map((point) => new THREE.Vector3(point.x, point.y, z));
+          const cableCurve = new THREE.CatmullRomCurve3(points);
+          const cable = new THREE.Mesh(new THREE.TubeGeometry(cableCurve, 96, 0.035, 8, false), steel);
+          add(cable, bridge, false);
+
+          for (let i = 1; i < 20; i += 1) {
+            const progress = i / 20;
+            const cablePoint = cableCurve.getPoint(progress);
+            tubeBetween(
+              new THREE.Vector3(cablePoint.x, deckY + 0.19, z),
+              cablePoint,
+              0.012,
+              steel,
+              bridge
+            );
+            if (i % 2 === 0) {
+              const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), bridgeLight);
+              bulb.position.copy(cablePoint);
+              bridge.add(bulb);
+            }
+          }
+        });
+
+        for (let i = 0; i < 30; i += 1) {
+          const x = THREE.MathUtils.lerp(-halfSpan + 0.25, halfSpan - 0.25, i / 29);
+          const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.035, 8, 8), bridgeLight);
+          lamp.position.set(x, deckY + 0.25, i % 2 ? -0.7 : 0.7);
+          bridge.add(lamp);
+        }
       }
 
       function createRooftop() {
