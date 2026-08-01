@@ -1252,11 +1252,12 @@
         rim.position.y = 0.24;
         add(rim, votive);
         const flame = new THREE.Mesh(new THREE.SphereGeometry(0.035, 14, 12), material.flame.clone());
+        flame.material.color.setHex(0xffb86b);
         flame.scale.set(0.66, 1.6, 0.66);
         flame.position.y = 0.27;
         votive.add(flame);
         flameMeshes.push({ mesh: flame, baseY: flame.position.y, offset: x * 1.7 + z });
-        const glow = new THREE.PointLight(0xffbd6a, 0.28, 1.5);
+        const glow = new THREE.PointLight(0xffad5c, 0.08, 0.9);
         glow.position.y = 0.27;
         votive.add(glow);
       }
