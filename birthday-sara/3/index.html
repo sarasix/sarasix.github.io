@@ -131,6 +131,35 @@
         gap: 12px;
       }
 
+      .music-toggle {
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        border: 1px solid rgba(248, 217, 154, 0.42);
+        border-radius: 50%;
+        background: rgba(7, 12, 27, 0.54);
+        color: rgba(255, 249, 237, 0.64);
+        font: 20px/1 Georgia, "Times New Roman", serif;
+        cursor: pointer;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+        transition: color 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+      }
+
+      .music-toggle:hover,
+      .music-toggle:focus-visible {
+        color: var(--ivory);
+        border-color: rgba(248, 217, 154, 0.82);
+        outline: none;
+      }
+
+      .music-toggle.is-playing {
+        color: var(--champagne);
+        border-color: rgba(248, 217, 154, 0.78);
+        background: rgba(54, 35, 34, 0.58);
+        box-shadow: 0 0 24px rgba(248, 217, 154, 0.18), 0 8px 28px rgba(0, 0, 0, 0.3);
+      }
+
       .hint {
         color: rgba(255, 249, 237, 0.56);
         font-size: 10px;
@@ -241,6 +270,7 @@
 
     <div class="experience-bar">
       <span class="hint">Drag to explore · Scroll to move closer</span>
+      <button class="music-toggle" id="music-toggle" type="button" aria-label="Play birthday piano music" aria-pressed="false">♪</button>
     </div>
 
     <div class="loader" id="loader" role="status" aria-live="polite">
@@ -261,7 +291,169 @@
 
       const canvas = document.querySelector("#scene");
       const loader = document.querySelector("#loader");
+      const musicToggle = document.querySelector("#music-toggle");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      const noteOffsets = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+      let audioContext;
+      let musicGain;
+      let musicLoopTimer;
+      let musicStarted = false;
+      let musicStarting = false;
+      let musicEnabled = true;
+
+      function noteFrequency(note) {
+        const match = note.match(/^([A-G])(\d)$/);
+        if (!match) return 440;
+        const midi = (Number(match[2]) + 1) * 12 + noteOffsets[match[1]];
+        return 440 * (2 ** ((midi - 69) / 12));
+      }
+
+      function createRoomReverb(context) {
+        const duration = 2.6;
+        const impulse = context.createBuffer(2, context.sampleRate * duration, context.sampleRate);
+        for (let channel = 0; channel < impulse.numberOfChannels; channel += 1) {
+          const data = impulse.getChannelData(channel);
+          for (let sample = 0; sample < data.length; sample += 1) {
+            const decay = (1 - sample / data.length) ** 2.7;
+            data[sample] = (Math.random() * 2 - 1) * decay;
+          }
+        }
+        const convolver = context.createConvolver();
+        convolver.buffer = impulse;
+        return convolver;
+      }
+
+      function ensureMusicContext() {
+        if (audioContext || !AudioContextClass) return;
+        audioContext = new AudioContextClass();
+        musicGain = audioContext.createGain();
+        musicGain.gain.value = 0.0001;
+
+        const dry = audioContext.createGain();
+        dry.gain.value = 0.82;
+        const wet = audioContext.createGain();
+        wet.gain.value = 0.22;
+        const reverb = createRoomReverb(audioContext);
+
+        musicGain.connect(dry);
+        musicGain.connect(reverb);
+        reverb.connect(wet);
+        dry.connect(audioContext.destination);
+        wet.connect(audioContext.destination);
+      }
+
+      function playPianoNote(note, when, duration, velocity) {
+        const frequency = noteFrequency(note);
+        const envelope = audioContext.createGain();
+        const warmth = audioContext.createBiquadFilter();
+        warmth.type = "lowpass";
+        warmth.frequency.setValueAtTime(2900, when);
+        warmth.Q.value = 0.55;
+        envelope.gain.setValueAtTime(0.0001, when);
+        envelope.gain.exponentialRampToValueAtTime(velocity, when + 0.018);
+        envelope.gain.exponentialRampToValueAtTime(velocity * 0.42, when + 0.34);
+        envelope.gain.exponentialRampToValueAtTime(0.0001, when + duration + 1.5);
+        envelope.connect(warmth);
+        warmth.connect(musicGain);
+
+        [
+          ["triangle", 1, 0.78],
+          ["sine", 2, 0.2],
+          ["sine", 3, 0.07],
+        ].forEach(([type, harmonic, level]) => {
+          const oscillator = audioContext.createOscillator();
+          const harmonicGain = audioContext.createGain();
+          oscillator.type = type;
+          oscillator.frequency.setValueAtTime(frequency * harmonic, when);
+          harmonicGain.gain.value = level;
+          oscillator.connect(harmonicGain);
+          harmonicGain.connect(envelope);
+          oscillator.start(when);
+          oscillator.stop(when + duration + 1.6);
+        });
+      }
+
+      function scheduleBirthdayPiano() {
+        if (!musicStarted || audioContext.state !== "running") return;
+        const beat = 60 / 76;
+        const start = audioContext.currentTime + 0.12;
+        const melody = [
+          ["G4", 0.75], ["G4", 0.25], ["A4", 1], ["G4", 1], ["C5", 1], ["B4", 2],
+          ["G4", 0.75], ["G4", 0.25], ["A4", 1], ["G4", 1], ["D5", 1], ["C5", 2],
+          ["G4", 0.75], ["G4", 0.25], ["G5", 1], ["E5", 1], ["C5", 1], ["B4", 1], ["A4", 2],
+          ["F5", 0.75], ["F5", 0.25], ["E5", 1], ["C5", 1], ["D5", 1], ["C5", 2],
+        ];
+        const chords = [
+          [0, ["C3", "E3", "G3"], 6],
+          [6, ["G2", "B2", "D3"], 3],
+          [9, ["C3", "E3", "G3"], 5],
+          [14, ["G2", "B2", "D3"], 2],
+          [16, ["C3", "E3", "G3"], 4],
+          [20, ["F2", "A2", "C3"], 4],
+          [24, ["F2", "A2", "C3"], 4],
+          [28, ["G2", "B2", "D3"], 3],
+          [31, ["C3", "E3", "G3"], 3],
+        ];
+
+        chords.forEach(([offset, notes, duration]) => {
+          notes.forEach((note, index) => {
+            playPianoNote(note, start + offset * beat + index * 0.065, duration * beat * 0.92, 0.042);
+          });
+        });
+
+        let cursor = 2;
+        melody.forEach(([note, duration]) => {
+          playPianoNote(note, start + cursor * beat, Math.max(0.22, duration * beat * 0.84), 0.095);
+          cursor += duration;
+        });
+
+        const loopDuration = 34 * beat;
+        window.clearTimeout(musicLoopTimer);
+        musicLoopTimer = window.setTimeout(scheduleBirthdayPiano, loopDuration * 1000);
+      }
+
+      function setMusicEnabled(enabled) {
+        musicEnabled = enabled;
+        if (!musicGain || !audioContext) return;
+        const now = audioContext.currentTime;
+        musicGain.gain.cancelScheduledValues(now);
+        musicGain.gain.setTargetAtTime(enabled ? 0.16 : 0.0001, now, 0.18);
+        musicToggle.classList.toggle("is-playing", enabled);
+        musicToggle.textContent = enabled ? "♫" : "♪";
+        musicToggle.setAttribute("aria-pressed", String(enabled));
+        musicToggle.setAttribute("aria-label", enabled ? "Pause birthday piano music" : "Play birthday piano music");
+      }
+
+      async function startMusic() {
+        if (musicStarted || musicStarting || !AudioContextClass) return;
+        musicStarting = true;
+        try {
+          ensureMusicContext();
+          await audioContext.resume();
+          if (audioContext.state !== "running") return;
+          musicStarted = true;
+          setMusicEnabled(true);
+          scheduleBirthdayPiano();
+        } catch {
+          // Browsers may require the first tap before allowing sound.
+        } finally {
+          musicStarting = false;
+        }
+      }
+
+      musicToggle.addEventListener("click", async (event) => {
+        event.stopPropagation();
+        if (!musicStarted) {
+          await startMusic();
+          return;
+        }
+        setMusicEnabled(!musicEnabled);
+      });
+      canvas.addEventListener("pointerdown", () => { void startMusic(); }, { once: true });
+      window.addEventListener("keydown", () => { void startMusic(); }, { once: true });
+
       const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
       renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -1319,6 +1511,7 @@
       window.addEventListener("resize", resize);
       resize();
       window.setTimeout(() => loader.classList.add("is-hidden"), 700);
+      window.setTimeout(() => { void startMusic(); }, 900);
 
       function updateFireworks(elapsed) {
         fireworks.forEach((firework) => {
