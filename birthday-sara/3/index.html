@@ -160,6 +160,32 @@
         box-shadow: 0 0 24px rgba(248, 217, 154, 0.18), 0 8px 28px rgba(0, 0, 0, 0.3);
       }
 
+      .music-prompt {
+        position: absolute;
+        right: 0;
+        bottom: 54px;
+        width: max-content;
+        padding: 8px 12px;
+        border: 1px solid rgba(248, 217, 154, 0.28);
+        border-radius: 999px;
+        background: rgba(7, 12, 27, 0.72);
+        color: rgba(255, 249, 237, 0.78);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 12px;
+        font-style: italic;
+        letter-spacing: 0.03em;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(5px);
+        transition: opacity 300ms ease, transform 300ms ease;
+        backdrop-filter: blur(12px);
+      }
+
+      .music-prompt.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       .hint {
         color: rgba(255, 249, 237, 0.56);
         font-size: 10px;
@@ -269,6 +295,7 @@
     </header>
 
     <div class="experience-bar">
+      <span class="music-prompt" id="music-prompt">Tap anywhere for music ♪</span>
       <span class="hint">Drag to explore · Scroll to move closer</span>
       <button class="music-toggle" id="music-toggle" type="button" aria-label="Play birthday piano music" aria-pressed="false">♪</button>
     </div>
@@ -292,6 +319,7 @@
       const canvas = document.querySelector("#scene");
       const loader = document.querySelector("#loader");
       const musicToggle = document.querySelector("#music-toggle");
+      const musicPrompt = document.querySelector("#music-prompt");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -300,7 +328,6 @@
       let musicGain;
       let musicLoopTimer;
       let musicStarted = false;
-      let musicStarting = false;
       let musicEnabled = true;
 
       function noteFrequency(note) {
@@ -419,7 +446,7 @@
         if (!musicGain || !audioContext) return;
         const now = audioContext.currentTime;
         musicGain.gain.cancelScheduledValues(now);
-        musicGain.gain.setTargetAtTime(enabled ? 0.16 : 0.0001, now, 0.18);
+        musicGain.gain.setTargetAtTime(enabled ? 0.22 : 0.0001, now, 0.18);
         musicToggle.classList.toggle("is-playing", enabled);
         musicToggle.textContent = enabled ? "♫" : "♪";
         musicToggle.setAttribute("aria-pressed", String(enabled));
@@ -427,19 +454,18 @@
       }
 
       async function startMusic() {
-        if (musicStarted || musicStarting || !AudioContextClass) return;
-        musicStarting = true;
+        if (musicStarted || !AudioContextClass) return;
         try {
           ensureMusicContext();
           await audioContext.resume();
           if (audioContext.state !== "running") return;
+          if (musicStarted) return;
           musicStarted = true;
+          musicPrompt.classList.remove("is-visible");
           setMusicEnabled(true);
           scheduleBirthdayPiano();
         } catch {
           // Browsers may require the first tap before allowing sound.
-        } finally {
-          musicStarting = false;
         }
       }
 
@@ -1485,6 +1511,9 @@
       resize();
       window.setTimeout(() => loader.classList.add("is-hidden"), 700);
       window.setTimeout(() => { void startMusic(); }, 900);
+      window.setTimeout(() => {
+        if (!musicStarted) musicPrompt.classList.add("is-visible");
+      }, 1700);
 
       function updateFireworks(elapsed) {
         fireworks.forEach((firework) => {
