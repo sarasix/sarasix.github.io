@@ -1164,6 +1164,74 @@
         }
       }
 
+      function addCoutureSwagBand(
+        parent,
+        {
+          radius,
+          anchorY,
+          loops,
+          drop,
+          offset = 0,
+          lineMaterial = material.ivory,
+          beadMaterial = material.pearl,
+          beadSize = 0.015,
+          lineWidth = 0.012,
+          beadsPerLoop = 7,
+          roseEvery = 0,
+          roseMaterial = material.blushSugar,
+          roseSize = 0.055,
+        }
+      ) {
+        const beadGeometry = new THREE.SphereGeometry(beadSize, 14, 12);
+        for (let loop = 0; loop < loops; loop += 1) {
+          const startAngle = ((loop + offset) / loops) * Math.PI * 2;
+          const endAngle = ((loop + 1 + offset) / loops) * Math.PI * 2;
+          const points = [];
+          for (let step = 0; step <= 22; step += 1) {
+            const progress = step / 22;
+            const angle = THREE.MathUtils.lerp(startAngle, endAngle, progress);
+            points.push(
+              new THREE.Vector3(
+                Math.cos(angle) * (radius + 0.032),
+                anchorY - Math.sin(progress * Math.PI) * drop,
+                Math.sin(angle) * (radius + 0.032)
+              )
+            );
+          }
+          const swag = new THREE.Mesh(
+            new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), 32, lineWidth, 8, false),
+            lineMaterial
+          );
+          add(swag, parent);
+
+          for (let beadIndex = 1; beadIndex <= beadsPerLoop; beadIndex += 1) {
+            const progress = beadIndex / (beadsPerLoop + 1);
+            const angle = THREE.MathUtils.lerp(startAngle, endAngle, progress);
+            const bead = new THREE.Mesh(beadGeometry, beadIndex % 3 ? beadMaterial : material.pearl);
+            bead.position.set(
+              Math.cos(angle) * (radius + 0.052),
+              anchorY - Math.sin(progress * Math.PI) * drop - beadSize * 1.45,
+              Math.sin(angle) * (radius + 0.052)
+            );
+            add(bead, parent);
+          }
+
+          if (roseEvery > 0 && loop % roseEvery === 0) {
+            const rose = createRose(roseSize, roseMaterial);
+            rose.position.set(
+              Math.cos(startAngle) * (radius + 0.07),
+              anchorY,
+              Math.sin(startAngle) * (radius + 0.07)
+            );
+            rose.quaternion.setFromUnitVectors(
+              new THREE.Vector3(0, 1, 0),
+              new THREE.Vector3(Math.cos(startAngle), 0, Math.sin(startAngle))
+            );
+            parent.add(rose);
+          }
+        }
+      }
+
       function addPearlBand(parent, radius, y, count, size = 0.032, pearlMaterial = material.pearl) {
         const geometry = new THREE.SphereGeometry(size, 14, 12);
         for (let i = 0; i < count; i += 1) {
@@ -1287,9 +1355,50 @@
           );
         });
 
+        addCoutureSwagBand(cake, {
+          radius: 1.47,
+          anchorY: 0.91,
+          loops: 10,
+          drop: 0.19,
+          lineMaterial: material.paleGold,
+          beadMaterial: material.pearl,
+          beadSize: 0.016,
+          lineWidth: 0.014,
+          beadsPerLoop: 8,
+          roseEvery: 2,
+          roseMaterial: material.blushSugar,
+          roseSize: 0.058,
+        });
         addPearlLaceTier(cake, 1.08, 1.45, 8);
+        addCoutureSwagBand(cake, {
+          radius: 0.76,
+          anchorY: 2.36,
+          loops: 7,
+          drop: 0.16,
+          offset: 0.5,
+          lineMaterial: material.blushSugar,
+          beadMaterial: material.paleGold,
+          beadSize: 0.014,
+          lineWidth: 0.012,
+          beadsPerLoop: 6,
+          roseEvery: 2,
+          roseMaterial: material.blushSugar,
+          roseSize: 0.052,
+        });
 
         addGoldGarland(cake, 0.49, 2.91, 6);
+        addCoutureSwagBand(cake, {
+          radius: 0.49,
+          anchorY: 2.96,
+          loops: 6,
+          drop: 0.14,
+          offset: 0.5,
+          lineMaterial: material.ivory,
+          beadMaterial: material.paleGold,
+          beadSize: 0.012,
+          lineWidth: 0.009,
+          beadsPerLoop: 5,
+        });
         addPearlBand(cake, 1.48, 1.055, 64, 0.025);
         addPearlBand(cake, 1.09, 1.79, 52, 0.024, material.paleGold);
         addPearlBand(cake, 0.77, 2.49, 42, 0.023);
