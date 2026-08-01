@@ -352,6 +352,13 @@
           metalness: 0.04,
           clearcoat: 0.4,
         }),
+        rubyRose: new THREE.MeshPhysicalMaterial({
+          color: 0xad3f42,
+          roughness: 0.4,
+          metalness: 0.03,
+          clearcoat: 0.34,
+          clearcoatRoughness: 0.24,
+        }),
         paleRose: new THREE.MeshStandardMaterial({ color: 0xffc3cd, roughness: 0.44 }),
         burgundy: new THREE.MeshStandardMaterial({ color: 0x681e38, roughness: 0.42 }),
         pearl: new THREE.MeshPhysicalMaterial({
@@ -982,7 +989,7 @@
           { r: 1.47, h: 0.76, y: 0.69, mat: material.ivory },
           { r: 1.08, h: 0.72, y: 1.45, mat: material.paleRose },
           { r: 0.76, h: 0.68, y: 2.16, mat: material.ivory },
-          { r: 0.48, h: 0.54, y: 2.77, mat: material.ivory },
+          { r: 0.48, h: 0.54, y: 2.77, mat: material.rubyRose },
         ];
         const icingCounts = [50, 44, 36, 28];
         const icingSizes = [0.088, 0.08, 0.073, 0.066];
