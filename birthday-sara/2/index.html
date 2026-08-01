@@ -317,7 +317,7 @@
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.16;
+      renderer.toneMappingExposure = 0.74;
 
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0x01040d);
@@ -344,7 +344,7 @@
 
       const composer = new EffectComposer(renderer);
       composer.addPass(new RenderPass(scene, camera));
-      const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.82, 0.55, 0.72);
+      const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.36, 0.42, 0.86);
       composer.addPass(bloom);
 
       const clock = new THREE.Clock();
@@ -922,7 +922,7 @@
           flame.position.set(x, y + 0.27, z);
           parent.add(flame);
           flameMeshes.push({ mesh: flame, baseY: flame.position.y, offset: index * 1.31 });
-          const light = new THREE.PointLight(0xffb45d, 1.0, 2.4);
+          const light = new THREE.PointLight(0xffb45d, 0.38, 2.1);
           light.position.copy(flame.position);
           parent.add(light);
         });
@@ -1037,7 +1037,7 @@
         flame.position.y = height + 0.53;
         group.add(flame);
         flameMeshes.push({ mesh: flame, baseY: flame.position.y, offset: x * 2 + z });
-        const glow = new THREE.PointLight(0xffb156, 1.6, 3.5);
+        const glow = new THREE.PointLight(0xffb156, 0.65, 3.1);
         glow.position.y = height + 0.48;
         group.add(glow);
       }
@@ -1109,9 +1109,9 @@
       }
 
       function addLights() {
-        scene.add(new THREE.AmbientLight(0x7894c3, 0.48));
-        scene.add(new THREE.HemisphereLight(0xd7e5ff, 0x24111d, 1.68));
-        const key = new THREE.SpotLight(0xffdfb3, 168, 30, Math.PI * 0.25, 0.58, 1.35);
+        scene.add(new THREE.AmbientLight(0x7894c3, 0.14));
+        scene.add(new THREE.HemisphereLight(0xd7e5ff, 0x24111d, 0.55));
+        const key = new THREE.SpotLight(0xffdfb3, 60, 30, Math.PI * 0.25, 0.58, 1.35);
         key.position.set(-2.5, 10, 7.5);
         key.target.position.set(0, 1.5, 0);
         key.castShadow = true;
@@ -1120,10 +1120,10 @@
         const rim = new THREE.DirectionalLight(0x729fff, 2.7);
         rim.position.set(10, 10, -12);
         scene.add(rim);
-        const pink = new THREE.PointLight(0xff6f9e, 4.4, 13);
+        const pink = new THREE.PointLight(0xff6f9e, 1.6, 12);
         pink.position.set(-3.5, 3.4, 2.5);
         scene.add(pink);
-        const cakeGlow = new THREE.PointLight(0xffc06f, 5.5, 10);
+        const cakeGlow = new THREE.PointLight(0xffc06f, 2.0, 9);
         cakeGlow.position.set(0.25, 4.2, 3.2);
         scene.add(cakeGlow);
       }
@@ -1155,7 +1155,7 @@
 
       wishButton.addEventListener("click", () => {
         wishEnergy = 1;
-        bloom.strength = 1.28;
+        bloom.strength = 0.72;
         wishButton.textContent = "Your wish is in the stars ✦";
         wishButton.disabled = true;
         window.setTimeout(() => {
@@ -1176,13 +1176,13 @@
           controls.target.set(-0.15, 2.08, -0.1);
           controls.minDistance = 9.2;
           controls.maxDistance = 18;
-          bloom.strength = 0.67;
+          bloom.strength = 0.28;
         } else {
           camera.position.set(0.45, 4.15, 11.8);
           controls.target.set(0, 2.05, -0.2);
           controls.minDistance = 6.6;
           controls.maxDistance = 17;
-          bloom.strength = 0.82;
+          bloom.strength = 0.36;
         }
         controls.update();
       }
@@ -1239,7 +1239,7 @@
         updateFireworks(elapsed);
         if (wishEnergy > 0) {
           wishEnergy *= 0.987;
-          bloom.strength = THREE.MathUtils.lerp(0.82, 1.35, wishEnergy);
+          bloom.strength = THREE.MathUtils.lerp(0.36, 0.78, wishEnergy);
         }
         controls.update();
         composer.render();
