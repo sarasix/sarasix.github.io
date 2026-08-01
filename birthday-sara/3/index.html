@@ -1179,19 +1179,19 @@
       function addCoutureRuffleTier(parent, radius, centerY, height) {
         const bottom = centerY - height / 2 + 0.065;
         const usableHeight = height - 0.13;
-        const ribbonCount = 26;
-        const strandOffsets = [-0.019, 0, 0.019];
+        const ribbonCount = 42;
+        const strandOffsets = [-0.065, -0.0325, 0, 0.0325, 0.065];
 
         for (let ribbon = 0; ribbon < ribbonCount; ribbon += 1) {
           const baseAngle = (ribbon / ribbonCount) * Math.PI * 2;
-          const phase = ribbon * 0.71;
+          const phase = ribbon * 0.38;
           strandOffsets.forEach((strandOffset, strandIndex) => {
             const points = [];
             for (let step = 0; step <= 20; step += 1) {
               const progress = step / 20;
               const sway =
-                Math.sin(progress * Math.PI * 2.1 + phase) * 0.038 +
-                Math.sin(progress * Math.PI * 4.2 + phase * 0.63) * 0.012;
+                Math.sin(progress * Math.PI * 2.1 + phase) * 0.028 +
+                Math.sin(progress * Math.PI * 4.2 + phase * 0.63) * 0.009;
               const angle = baseAngle + sway + strandOffset;
               const surfaceRadius = radius + 0.027 + Math.cos(progress * Math.PI * 3 + phase) * 0.007;
               points.push(
@@ -1202,10 +1202,11 @@
                 )
               );
             }
-            const thickness = strandIndex === 1 ? 0.02 : 0.013;
+            const distanceFromCenter = Math.abs(strandIndex - 2);
+            const thickness = distanceFromCenter === 0 ? 0.022 : distanceFromCenter === 1 ? 0.017 : 0.015;
             const strand = new THREE.Mesh(
-              new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), 34, thickness, 9, false),
-              strandIndex === 1 ? material.ivory : material.pearl
+              new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), 30, thickness, 8, false),
+              strandIndex % 2 ? material.pearl : material.ivory
             );
             add(strand, parent);
           });
