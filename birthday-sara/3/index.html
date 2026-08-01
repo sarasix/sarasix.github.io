@@ -1160,20 +1160,6 @@
             new THREE.Vector3(Math.cos(angle), 0, Math.sin(angle))
           );
           parent.add(rose);
-
-          if (joint % 2 === 0) {
-            const pendantAngle = ((joint + 0.5) / loops) * Math.PI * 2;
-            for (let pearlIndex = 0; pearlIndex < 4; pearlIndex += 1) {
-              const pearl = new THREE.Mesh(pearlGeometry, material.pearl);
-              pearl.scale.setScalar(1 - pearlIndex * 0.08);
-              pearl.position.set(
-                Math.cos(pendantAngle) * (radius + 0.052),
-                centerY - 0.1 - pearlIndex * 0.045,
-                Math.sin(pendantAngle) * (radius + 0.052)
-              );
-              add(pearl, parent);
-            }
-          }
         }
       }
 
