@@ -1129,67 +1129,6 @@
         return rose;
       }
 
-      function createCoutureSugarRose(size, mat = material.blushSugar) {
-        const rose = new THREE.Group();
-        const petalGeometry = new THREE.SphereGeometry(1, 18, 12);
-        const rings = [
-          { count: 5, radius: 0.08, width: 0.25, length: 0.42, lift: 0.17, curl: 0.92, petalMaterial: material.rose },
-          { count: 7, radius: 0.2, width: 0.32, length: 0.52, lift: 0.12, curl: 0.74, petalMaterial: mat },
-          { count: 10, radius: 0.36, width: 0.39, length: 0.62, lift: 0.07, curl: 0.56, petalMaterial: mat },
-          { count: 13, radius: 0.55, width: 0.47, length: 0.72, lift: 0.015, curl: 0.38, petalMaterial: material.paleRose },
-          { count: 16, radius: 0.74, width: 0.52, length: 0.78, lift: -0.035, curl: 0.24, petalMaterial: material.paleRose },
-        ];
-
-        rings.forEach((ring, ringIndex) => {
-          for (let petalIndex = 0; petalIndex < ring.count; petalIndex += 1) {
-            const angle = (petalIndex / ring.count) * Math.PI * 2 + ringIndex * 0.39;
-            const petal = new THREE.Mesh(petalGeometry, ring.petalMaterial);
-            petal.scale.set(size * ring.width, size * 0.09, size * ring.length);
-            petal.position.set(
-              Math.sin(angle) * size * ring.radius,
-              size * ring.lift,
-              Math.cos(angle) * size * ring.radius
-            );
-            petal.rotation.set(
-              ring.curl + Math.sin(petalIndex * 1.73) * 0.055,
-              angle,
-              Math.cos(petalIndex * 1.37) * 0.065
-            );
-            add(petal, rose);
-          }
-        });
-
-        const center = new THREE.Mesh(new THREE.SphereGeometry(size * 0.19, 16, 12), material.rose);
-        center.scale.y = 0.7;
-        center.position.y = size * 0.17;
-        add(center, rose);
-
-        for (let leafIndex = 0; leafIndex < 3; leafIndex += 1) {
-          const angle = (leafIndex / 3) * Math.PI * 2 + 0.42;
-          const leaf = new THREE.Mesh(new THREE.SphereGeometry(1, 14, 10), material.leaf);
-          leaf.scale.set(size * 0.26, size * 0.055, size * 0.74);
-          leaf.position.set(
-            Math.sin(angle) * size * 0.77,
-            -size * 0.13,
-            Math.cos(angle) * size * 0.77
-          );
-          leaf.rotation.set(-0.1, angle, 0.1);
-          add(leaf, rose);
-        }
-
-        for (let pearlIndex = 0; pearlIndex < 3; pearlIndex += 1) {
-          const angle = (pearlIndex / 3) * Math.PI * 2 + 0.9;
-          const pearl = new THREE.Mesh(new THREE.SphereGeometry(size * 0.09, 12, 10), material.paleGold);
-          pearl.position.set(
-            Math.sin(angle) * size * 0.93,
-            -size * 0.03,
-            Math.cos(angle) * size * 0.93
-          );
-          add(pearl, rose);
-        }
-        return rose;
-      }
-
       function scatterRosePetals(parent) {
         for (let i = 0; i < 38; i += 1) {
           const petal = new THREE.Mesh(new THREE.SphereGeometry(0.075 + random() * 0.04, 10, 8), i % 4 ? material.rose : material.paleRose);
@@ -1319,7 +1258,7 @@
 
         for (let joint = 0; joint < loops; joint += 1) {
           const angle = (joint / loops) * Math.PI * 2;
-          const rose = createCoutureSugarRose(0.078, material.blushSugar);
+          const rose = createRose(0.078, material.blushSugar);
           rose.position.set(
             Math.cos(angle) * (radius + 0.072),
             centerY + 0.23,
@@ -1386,7 +1325,7 @@
           }
 
           if (roseEvery > 0 && loop % roseEvery === 0) {
-            const rose = createCoutureSugarRose(roseSize, roseMaterial);
+            const rose = createRose(roseSize, roseMaterial);
             rose.position.set(
               Math.cos(startAngle) * (radius + 0.07),
               anchorY,
