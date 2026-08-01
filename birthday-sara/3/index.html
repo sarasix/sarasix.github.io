@@ -564,6 +564,13 @@
           clearcoat: 0.64,
           clearcoatRoughness: 0.18,
         }),
+        blushIvory: new THREE.MeshPhysicalMaterial({
+          color: 0xffe8ed,
+          roughness: 0.33,
+          metalness: 0.01,
+          clearcoat: 0.58,
+          clearcoatRoughness: 0.2,
+        }),
         rose: new THREE.MeshPhysicalMaterial({
           color: 0xdd718e,
           roughness: 0.38,
@@ -1328,7 +1335,7 @@
 
         const tiers = [
           { r: 1.47, h: 0.76, y: 0.69, mat: material.ivory },
-          { r: 1.08, h: 0.72, y: 1.45, mat: material.ivory },
+          { r: 1.08, h: 0.72, y: 1.45, mat: material.blushIvory },
           { r: 0.76, h: 0.68, y: 2.16, mat: material.ivory },
           { r: 0.48, h: 0.54, y: 2.77, mat: material.rubyRose },
         ];
