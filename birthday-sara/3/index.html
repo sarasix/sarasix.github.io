@@ -140,46 +140,6 @@
         text-shadow: 0 2px 12px #000;
       }
 
-      .wish-button {
-        position: relative;
-        min-width: 154px;
-        overflow: hidden;
-        border: 1px solid rgba(248, 217, 154, 0.5);
-        border-radius: 999px;
-        padding: 13px 21px;
-        background: linear-gradient(135deg, rgba(28, 23, 48, 0.82), rgba(104, 62, 76, 0.68));
-        box-shadow: 0 14px 50px rgba(0, 0, 0, 0.35), inset 0 1px rgba(255, 255, 255, 0.12);
-        color: var(--ivory);
-        cursor: pointer;
-        font: 700 11px/1 Inter, ui-sans-serif, sans-serif;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-      }
-
-      .wish-button::before {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(105deg, transparent 22%, rgba(255,255,255,.25) 48%, transparent 72%);
-        content: "";
-        transform: translateX(-130%);
-        transition: transform 700ms ease;
-      }
-
-      .wish-button:hover,
-      .wish-button:focus-visible {
-        border-color: rgba(248, 217, 154, 0.96);
-        box-shadow: 0 16px 58px rgba(0, 0, 0, 0.48), 0 0 28px rgba(248, 217, 154, 0.14);
-        outline: none;
-        transform: translateY(-2px);
-      }
-
-      .wish-button:hover::before {
-        transform: translateX(130%);
-      }
-
       .loader {
         position: fixed;
         inset: 0;
@@ -254,11 +214,6 @@
           display: none;
         }
 
-        .wish-button {
-          min-width: 136px;
-          padding: 12px 17px;
-          font-size: 10px;
-        }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -286,9 +241,6 @@
 
     <div class="experience-bar">
       <span class="hint">Drag to explore · Scroll to move closer</span>
-      <button class="wish-button" id="wishButton" type="button" aria-label="Make a birthday wish">
-        Make a wish&nbsp; ✦
-      </button>
     </div>
 
     <div class="loader" id="loader" role="status" aria-live="polite">
@@ -309,7 +261,6 @@
 
       const canvas = document.querySelector("#scene");
       const loader = document.querySelector("#loader");
-      const wishButton = document.querySelector("#wishButton");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
@@ -444,7 +395,6 @@
       const flameMeshes = [];
       const twinkleMaterials = [];
       const fireworks = [];
-      let wishEnergy = 0;
 
       function add(mesh, parent = scene, shadows = true) {
         if (shadows) {
@@ -1329,17 +1279,6 @@
         lastInteraction = performance.now();
       });
 
-      wishButton.addEventListener("click", () => {
-        wishEnergy = 1;
-        bloom.strength = 0.72;
-        wishButton.textContent = "Your wish is in the stars ✦";
-        wishButton.disabled = true;
-        window.setTimeout(() => {
-          wishButton.disabled = false;
-          wishButton.innerHTML = "Make another wish&nbsp; ✦";
-        }, 5000);
-      });
-
       function resize() {
         const width = window.innerWidth;
         const height = window.innerHeight;
@@ -1369,10 +1308,9 @@
 
       function updateFireworks(elapsed) {
         fireworks.forEach((firework) => {
-          const boost = wishEnergy > 0.02 ? 0.8 : 0;
-          const cycle = (elapsed + firework.userData.delay + boost) % 5.2;
+          const cycle = (elapsed + firework.userData.delay) % 5.2;
           const active = cycle < firework.userData.duration;
-          firework.material.opacity = active ? Math.max(0, 1 - cycle / firework.userData.duration) * (0.72 + boost * 0.35) : 0;
+          firework.material.opacity = active ? Math.max(0, 1 - cycle / firework.userData.duration) * 0.72 : 0;
           if (!active) return;
           const positions = firework.geometry.attributes.position.array;
           firework.userData.velocities.forEach((velocity, index) => {
@@ -1396,14 +1334,14 @@
           mesh.scale.x = 0.67 + flutter;
           mesh.scale.z = 0.67 - flutter * 0.5;
           mesh.position.y = baseY + Math.sin(elapsed * 7 + offset) * 0.012;
-          mesh.material.opacity = wishEnergy > 0.02 ? 0.18 + Math.sin(elapsed * 12 + index) * 0.06 : 1;
+          mesh.material.opacity = 1;
           mesh.material.transparent = true;
         });
         cake.rotation.y = reduceMotion ? 0 : elapsed * 0.022;
         card.position.y = Math.sin(elapsed * 0.55) * 0.018;
         const p = atmosphere.geometry.attributes.position;
         for (let i = 0; i < p.count; i += 1) {
-          let y = p.getY(i) + 0.0025 + wishEnergy * 0.006;
+          let y = p.getY(i) + 0.0025;
           if (y > 9) y = 0.7;
           p.setY(i, y);
           p.setX(i, p.getX(i) + Math.sin(elapsed * 0.4 + i) * 0.0005);
@@ -1413,10 +1351,6 @@
           mat.opacity = 0.82 + Math.sin(elapsed * (0.4 + (index % 5) * 0.07) + index) * 0.14;
         });
         updateFireworks(elapsed);
-        if (wishEnergy > 0) {
-          wishEnergy *= 0.987;
-          bloom.strength = THREE.MathUtils.lerp(0.36, 0.78, wishEnergy);
-        }
         controls.update();
         composer.render();
         requestAnimationFrame(animate);
