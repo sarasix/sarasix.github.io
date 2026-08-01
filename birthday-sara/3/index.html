@@ -618,6 +618,27 @@
         }),
         navyVelvet: new THREE.MeshStandardMaterial({ color: 0x101936, roughness: 0.72, metalness: 0.06 }),
         midnightMetal: new THREE.MeshStandardMaterial({ color: 0x10182b, roughness: 0.2, metalness: 0.86 }),
+        polishedSilver: new THREE.MeshPhysicalMaterial({
+          color: 0xe9eef7,
+          roughness: 0.08,
+          metalness: 0.96,
+          clearcoat: 1,
+          clearcoatRoughness: 0.05,
+        }),
+        bottleGreen: new THREE.MeshPhysicalMaterial({
+          color: 0x102f2a,
+          roughness: 0.12,
+          metalness: 0.28,
+          clearcoat: 0.92,
+          transparent: true,
+          opacity: 0.94,
+        }),
+        chocolate: new THREE.MeshPhysicalMaterial({
+          color: 0x3d151b,
+          roughness: 0.42,
+          metalness: 0.03,
+          clearcoat: 0.32,
+        }),
         marble: new THREE.MeshPhysicalMaterial({
           color: 0x8f9bab,
           roughness: 0.2,
@@ -1069,6 +1090,7 @@
         createPlaceSetting(table, 1.8, 0.08, -Math.PI * 0.04);
         createChampagne(table, -2.12, 0.7);
         createChampagne(table, 2.12, 0.7);
+        createLuxuryTableDecor(table);
         scatterRosePetals(table);
         return table;
       }
@@ -1111,6 +1133,161 @@
         const foot = cylinder(0.14, 0.14, 0.018, material.glass, 32);
         foot.position.y = -0.07;
         add(foot, glass, false);
+      }
+
+      function createChampagneService(parent, x, z) {
+        const service = new THREE.Group();
+        service.position.set(x, 1.37, z);
+        service.rotation.y = -0.18;
+        parent.add(service);
+
+        const bucket = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.27, 0.48, 48, 1, true), material.polishedSilver);
+        bucket.position.y = 0.24;
+        add(bucket, service);
+        const base = cylinder(0.28, 0.28, 0.045, material.polishedSilver, 48);
+        base.position.y = 0.025;
+        add(base, service);
+        const rim = new THREE.Mesh(new THREE.TorusGeometry(0.34, 0.027, 10, 64), material.gold);
+        rim.rotation.x = Math.PI / 2;
+        rim.position.y = 0.48;
+        add(rim, service);
+        [-1, 1].forEach((side) => {
+          const handle = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.018, 8, 32), material.gold);
+          handle.position.set(side * 0.34, 0.31, 0);
+          handle.rotation.y = Math.PI / 2;
+          add(handle, service);
+        });
+
+        for (let i = 0; i < 8; i += 1) {
+          const ice = new THREE.Mesh(new THREE.OctahedronGeometry(0.075 + (i % 3) * 0.012, 0), material.crystal);
+          const angle = (i / 8) * Math.PI * 2;
+          ice.position.set(Math.cos(angle) * 0.2, 0.48 + (i % 2) * 0.025, Math.sin(angle) * 0.18);
+          ice.rotation.set(i * 0.4, i * 0.7, i * 0.31);
+          add(ice, service, false);
+        }
+
+        const bottle = new THREE.Group();
+        bottle.position.set(0.03, 0.38, -0.02);
+        bottle.rotation.z = -0.18;
+        service.add(bottle);
+        const bottleBody = cylinder(0.105, 0.13, 0.68, material.bottleGreen, 36);
+        bottleBody.position.y = 0.31;
+        add(bottleBody, bottle);
+        const shoulder = cylinder(0.055, 0.105, 0.16, material.bottleGreen, 36);
+        shoulder.position.y = 0.73;
+        add(shoulder, bottle);
+        const neck = cylinder(0.05, 0.055, 0.34, material.bottleGreen, 30);
+        neck.position.y = 0.98;
+        add(neck, bottle);
+        const foil = cylinder(0.055, 0.055, 0.18, material.gold, 30);
+        foil.position.y = 1.18;
+        add(foil, bottle);
+        const label = cylinder(0.109, 0.109, 0.16, material.ivory, 36);
+        label.position.y = 0.35;
+        add(label, bottle);
+        const labelBand = new THREE.Mesh(new THREE.TorusGeometry(0.111, 0.008, 6, 36), material.gold);
+        labelBand.rotation.x = Math.PI / 2;
+        labelBand.position.y = 0.35;
+        add(labelBand, bottle);
+      }
+
+      function createMacaron(colorMaterial) {
+        const macaron = new THREE.Group();
+        const top = cylinder(0.09, 0.085, 0.055, colorMaterial, 28);
+        top.position.y = 0.045;
+        add(top, macaron);
+        const filling = cylinder(0.087, 0.087, 0.028, material.ivory, 28);
+        add(filling, macaron);
+        const bottom = cylinder(0.085, 0.09, 0.055, colorMaterial, 28);
+        bottom.position.y = -0.045;
+        add(bottom, macaron);
+        return macaron;
+      }
+
+      function createMacaronStand(parent, x, z) {
+        const stand = new THREE.Group();
+        stand.position.set(x, 1.4, z);
+        parent.add(stand);
+        const stem = cylinder(0.025, 0.04, 0.82, material.gold, 20);
+        stem.position.y = 0.42;
+        add(stem, stand);
+        const tierDetails = [
+          { radius: 0.48, y: 0.12, count: 8 },
+          { radius: 0.34, y: 0.53, count: 6 },
+          { radius: 0.19, y: 0.85, count: 3 },
+        ];
+        const macaronMaterials = [material.blushSugar, material.ivory, material.paleRose, material.rose];
+        tierDetails.forEach((tier, tierIndex) => {
+          const plate = cylinder(tier.radius, tier.radius, 0.035, material.crystal, 56);
+          plate.position.y = tier.y;
+          add(plate, stand, false);
+          const plateRim = new THREE.Mesh(new THREE.TorusGeometry(tier.radius, 0.018, 8, 56), material.gold);
+          plateRim.rotation.x = Math.PI / 2;
+          plateRim.position.y = tier.y + 0.02;
+          add(plateRim, stand);
+          for (let i = 0; i < tier.count; i += 1) {
+            const angle = (i / tier.count) * Math.PI * 2 + tierIndex * 0.3;
+            const macaron = createMacaron(macaronMaterials[(i + tierIndex) % macaronMaterials.length]);
+            const spread = tier.radius * 0.66;
+            macaron.position.set(Math.cos(angle) * spread, tier.y + 0.09, Math.sin(angle) * spread);
+            macaron.rotation.y = angle;
+            stand.add(macaron);
+          }
+        });
+        const finial = new THREE.Mesh(new THREE.SphereGeometry(0.07, 18, 14), material.paleGold);
+        finial.position.y = 0.97;
+        add(finial, stand);
+      }
+
+      function createCrystalVotive(parent, x, z, scale = 1) {
+        const votive = new THREE.Group();
+        votive.position.set(x, 1.39, z);
+        votive.scale.setScalar(scale);
+        parent.add(votive);
+        const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.12, 0.24, 32, 1, true), material.glass);
+        cup.position.y = 0.12;
+        add(cup, votive, false);
+        const rim = new THREE.Mesh(new THREE.TorusGeometry(0.15, 0.012, 8, 36), material.gold);
+        rim.rotation.x = Math.PI / 2;
+        rim.position.y = 0.24;
+        add(rim, votive);
+        const flame = new THREE.Mesh(new THREE.SphereGeometry(0.035, 14, 12), material.flame.clone());
+        flame.scale.set(0.66, 1.6, 0.66);
+        flame.position.y = 0.27;
+        votive.add(flame);
+        flameMeshes.push({ mesh: flame, baseY: flame.position.y, offset: x * 1.7 + z });
+        const glow = new THREE.PointLight(0xffbd6a, 0.28, 1.5);
+        glow.position.y = 0.27;
+        votive.add(glow);
+      }
+
+      function createBonbonDish(parent, x, z) {
+        const dish = new THREE.Group();
+        dish.position.set(x, 1.4, z);
+        parent.add(dish);
+        const bowl = new THREE.Mesh(new THREE.CylinderGeometry(0.29, 0.21, 0.06, 40), material.crystal);
+        bowl.position.y = 0.03;
+        add(bowl, dish, false);
+        const rim = new THREE.Mesh(new THREE.TorusGeometry(0.29, 0.018, 8, 48), material.gold);
+        rim.rotation.x = Math.PI / 2;
+        rim.position.y = 0.065;
+        add(rim, dish);
+        for (let i = 0; i < 7; i += 1) {
+          const angle = (i / 7) * Math.PI * 2;
+          const truffle = new THREE.Mesh(new THREE.SphereGeometry(0.065, 14, 10), i % 3 ? material.chocolate : material.paleGold);
+          truffle.position.set(Math.cos(angle) * 0.15, 0.1 + (i % 2) * 0.025, Math.sin(angle) * 0.13);
+          add(truffle, dish);
+        }
+      }
+
+      function createLuxuryTableDecor(parent) {
+        createMacaronStand(parent, -2.35, -0.82);
+        createChampagneService(parent, 2.35, -0.82);
+        createBonbonDish(parent, -2.35, 1.1);
+        createBonbonDish(parent, 2.35, 1.1);
+        createCrystalVotive(parent, -1.15, 1.72, 0.9);
+        createCrystalVotive(parent, 0, 1.92, 1.02);
+        createCrystalVotive(parent, 1.15, 1.72, 0.9);
       }
 
       function createRose(size, mat = material.rose) {
