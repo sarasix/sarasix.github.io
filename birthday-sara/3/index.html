@@ -802,31 +802,37 @@
       }
 
       function addIcingBorder(parent, radius, y, count, size) {
-        const baseGeometry = new THREE.SphereGeometry(size, 18, 14);
-        const crestGeometry = new THREE.SphereGeometry(size * 0.62, 16, 12);
-        const tipGeometry = new THREE.ConeGeometry(size * 0.2, size * 0.46, 14);
+        const rosetteGeometry = new THREE.SphereGeometry(
+          size,
+          32,
+          10,
+          0,
+          Math.PI * 2,
+          0,
+          Math.PI / 2
+        );
+        const positions = rosetteGeometry.attributes.position;
+        for (let vertex = 0; vertex < positions.count; vertex += 1) {
+          const x = positions.getX(vertex);
+          const localY = positions.getY(vertex);
+          const z = positions.getZ(vertex);
+          const angle = Math.atan2(z, x);
+          const heightRatio = Math.max(0, localY / size);
+          const pipingRidge = 1 + Math.cos(angle * 8) * 0.11 * (1 - heightRatio * 0.62);
+          positions.setX(vertex, x * pipingRidge);
+          positions.setY(vertex, localY * 0.68);
+          positions.setZ(vertex, z * pipingRidge);
+        }
+        positions.needsUpdate = true;
+        rosetteGeometry.computeVertexNormals();
+
         for (let i = 0; i < count; i += 1) {
           const angle = (i / count) * Math.PI * 2;
-          const shell = new THREE.Group();
-          shell.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
-          shell.rotation.y = -angle;
-
-          const base = new THREE.Mesh(baseGeometry, material.ivory);
-          base.scale.set(1.34, 0.58, 0.92);
-          base.rotation.z = i % 2 ? 0.08 : -0.08;
-          add(base, shell);
-
-          const crest = new THREE.Mesh(crestGeometry, material.ivory);
-          crest.scale.set(0.9, 0.68, 0.82);
-          crest.position.set(size * 0.18, size * 0.42, 0);
-          add(crest, shell);
-
-          const tip = new THREE.Mesh(tipGeometry, material.pearl);
-          tip.position.set(size * 0.23, size * 0.78, 0);
-          tip.rotation.z = -0.28;
-          add(tip, shell);
-
-          parent.add(shell);
+          const rosette = new THREE.Mesh(rosetteGeometry, material.ivory);
+          rosette.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
+          rosette.rotation.y = -angle + (i % 2 ? Math.PI / 16 : 0);
+          rosette.scale.set(1.08, 1, 0.9);
+          add(rosette, parent);
         }
       }
 
@@ -995,7 +1001,7 @@
           addIcingBorder(
             cake,
             tier.r * 1.014,
-            tier.y - tier.h / 2 + icingSizes[index] * 0.58,
+            tier.y - tier.h / 2 + 0.025,
             icingCounts[index],
             icingSizes[index]
           );
