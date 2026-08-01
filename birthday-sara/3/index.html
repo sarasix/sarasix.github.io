@@ -1001,37 +1001,44 @@
       }
 
       function addIcingBorder(parent, radius, y, count, size) {
-        const rosetteGeometry = new THREE.SphereGeometry(
-          size,
-          32,
-          10,
-          0,
-          Math.PI * 2,
-          0,
-          Math.PI / 2
-        );
-        const positions = rosetteGeometry.attributes.position;
-        for (let vertex = 0; vertex < positions.count; vertex += 1) {
-          const x = positions.getX(vertex);
-          const localY = positions.getY(vertex);
-          const z = positions.getZ(vertex);
-          const angle = Math.atan2(z, x);
-          const heightRatio = Math.max(0, localY / size);
-          const pipingRidge = 1 + Math.cos(angle * 8) * 0.11 * (1 - heightRatio * 0.62);
-          positions.setX(vertex, x * pipingRidge);
-          positions.setY(vertex, localY * 0.68);
-          positions.setZ(vertex, z * pipingRidge);
+        const spiralPoints = [];
+        const spiralSegments = 42;
+        for (let segment = 0; segment <= spiralSegments; segment += 1) {
+          const progress = segment / spiralSegments;
+          const spiralAngle = progress * Math.PI * 3.4;
+          const spiralRadius = size * (0.86 - progress * 0.7);
+          spiralPoints.push(
+            new THREE.Vector3(
+              Math.cos(spiralAngle) * spiralRadius,
+              size * (0.08 + progress * 0.26),
+              Math.sin(spiralAngle) * spiralRadius
+            )
+          );
         }
-        positions.needsUpdate = true;
-        rosetteGeometry.computeVertexNormals();
+        const spiralGeometry = new THREE.TubeGeometry(
+          new THREE.CatmullRomCurve3(spiralPoints),
+          56,
+          size * 0.205,
+          10,
+          false
+        );
+        const capGeometry = new THREE.SphereGeometry(size * 0.205, 14, 10);
 
         for (let i = 0; i < count; i += 1) {
           const angle = (i / count) * Math.PI * 2;
-          const rosette = new THREE.Mesh(rosetteGeometry, material.ivory);
-          rosette.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
-          rosette.rotation.y = -angle + (i % 2 ? Math.PI / 16 : 0);
-          rosette.scale.set(1.08, 1, 0.9);
-          add(rosette, parent);
+          const swirl = new THREE.Group();
+          swirl.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
+          swirl.rotation.y = -angle + (i % 2 ? Math.PI / 10 : 0);
+
+          const piping = new THREE.Mesh(spiralGeometry, material.ivory);
+          add(piping, swirl);
+          [spiralPoints[0], spiralPoints[spiralPoints.length - 1]].forEach((point) => {
+            const cap = new THREE.Mesh(capGeometry, material.ivory);
+            cap.position.copy(point);
+            cap.scale.y = 0.88;
+            add(cap, swirl);
+          });
+          parent.add(swirl);
         }
       }
 
