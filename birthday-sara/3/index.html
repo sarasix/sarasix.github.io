@@ -1027,44 +1027,59 @@
       }
 
       function addIcingBorder(parent, radius, y, count, size) {
-        const spiralPoints = [];
-        const spiralSegments = 42;
-        for (let segment = 0; segment <= spiralSegments; segment += 1) {
-          const progress = segment / spiralSegments;
-          const spiralAngle = progress * Math.PI * 3.4;
-          const spiralRadius = size * (0.86 - progress * 0.7);
-          spiralPoints.push(
-            new THREE.Vector3(
-              Math.cos(spiralAngle) * spiralRadius,
-              size * (0.08 + progress * 0.26),
-              Math.sin(spiralAngle) * spiralRadius
-            )
-          );
+        const radialSegments = 14;
+        const angularSegments = 64;
+        const fluteCount = 9;
+        const vertices = [0, size * 0.62, 0];
+        const indices = [];
+
+        for (let ring = 1; ring <= radialSegments; ring += 1) {
+          const radiusProgress = ring / radialSegments;
+          for (let segment = 0; segment < angularSegments; segment += 1) {
+            const angle = (segment / angularSegments) * Math.PI * 2;
+            const twistedAngle = angle - radiusProgress * 0.56;
+            const flute = Math.cos(twistedAngle * fluteCount);
+            const petalRadius = size * radiusProgress * (1 + flute * (0.045 + radiusProgress * 0.075));
+            const dome = size * (0.075 + 0.56 * ((1 - radiusProgress) ** 0.58));
+            const pipingRelief = size * flute * (0.022 + radiusProgress * 0.044);
+            vertices.push(
+              Math.cos(angle) * petalRadius,
+              dome + pipingRelief,
+              Math.sin(angle) * petalRadius
+            );
+          }
         }
-        const spiralGeometry = new THREE.TubeGeometry(
-          new THREE.CatmullRomCurve3(spiralPoints),
-          56,
-          size * 0.205,
-          10,
-          false
-        );
-        const capGeometry = new THREE.SphereGeometry(size * 0.205, 14, 10);
+
+        for (let segment = 0; segment < angularSegments; segment += 1) {
+          const current = 1 + segment;
+          const next = 1 + ((segment + 1) % angularSegments);
+          indices.push(0, next, current);
+        }
+        for (let ring = 1; ring < radialSegments; ring += 1) {
+          const innerStart = 1 + (ring - 1) * angularSegments;
+          const outerStart = 1 + ring * angularSegments;
+          for (let segment = 0; segment < angularSegments; segment += 1) {
+            const nextSegment = (segment + 1) % angularSegments;
+            const inner = innerStart + segment;
+            const innerNext = innerStart + nextSegment;
+            const outer = outerStart + segment;
+            const outerNext = outerStart + nextSegment;
+            indices.push(inner, outerNext, outer, inner, innerNext, outerNext);
+          }
+        }
+
+        const rosetteGeometry = new THREE.BufferGeometry();
+        rosetteGeometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+        rosetteGeometry.setIndex(indices);
+        rosetteGeometry.computeVertexNormals();
 
         for (let i = 0; i < count; i += 1) {
           const angle = (i / count) * Math.PI * 2;
-          const swirl = new THREE.Group();
-          swirl.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
-          swirl.rotation.y = -angle + (i % 2 ? Math.PI / 10 : 0);
-
-          const piping = new THREE.Mesh(spiralGeometry, material.ivory);
-          add(piping, swirl);
-          [spiralPoints[0], spiralPoints[spiralPoints.length - 1]].forEach((point) => {
-            const cap = new THREE.Mesh(capGeometry, material.ivory);
-            cap.position.copy(point);
-            cap.scale.y = 0.88;
-            add(cap, swirl);
-          });
-          parent.add(swirl);
+          const rosette = new THREE.Mesh(rosetteGeometry, material.ivory);
+          rosette.position.set(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
+          rosette.rotation.y = -angle + (i % 2 ? Math.PI / 18 : 0);
+          rosette.scale.set(1.08, 1, 0.94);
+          add(rosette, parent);
         }
       }
 
