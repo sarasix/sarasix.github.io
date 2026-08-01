@@ -578,11 +578,12 @@
           clearcoatRoughness: 0.24,
         }),
         paleRose: new THREE.MeshStandardMaterial({ color: 0xffc3cd, roughness: 0.44 }),
-        aquaSugar: new THREE.MeshPhysicalMaterial({
-          color: 0xbcded7,
-          roughness: 0.4,
+        blushSugar: new THREE.MeshPhysicalMaterial({
+          color: 0xf3b4c1,
+          roughness: 0.38,
           metalness: 0.01,
-          clearcoat: 0.28,
+          clearcoat: 0.34,
+          clearcoatRoughness: 0.22,
         }),
         burgundy: new THREE.MeshStandardMaterial({ color: 0x681e38, roughness: 0.42 }),
         pearl: new THREE.MeshPhysicalMaterial({
@@ -1149,7 +1150,7 @@
 
         for (let joint = 0; joint < loops; joint += 1) {
           const angle = (joint / loops) * Math.PI * 2;
-          const rose = createRose(0.078, material.aquaSugar);
+          const rose = createRose(0.078, material.blushSugar);
           rose.position.set(
             Math.cos(angle) * (radius + 0.072),
             centerY + 0.23,
