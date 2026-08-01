@@ -1399,7 +1399,7 @@
           mesh.material.opacity = wishEnergy > 0.02 ? 0.18 + Math.sin(elapsed * 12 + index) * 0.06 : 1;
           mesh.material.transparent = true;
         });
-        cake.rotation.y = Math.sin(elapsed * 0.32) * 0.035;
+        cake.rotation.y = reduceMotion ? 0 : elapsed * 0.022;
         card.position.y = Math.sin(elapsed * 0.55) * 0.018;
         const p = atmosphere.geometry.attributes.position;
         for (let i = 0; i < p.count; i += 1) {
